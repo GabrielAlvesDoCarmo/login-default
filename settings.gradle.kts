@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "login-default"
 include(":app")
+include(":login")
