@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center|top"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/linearLayoutCompat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <br.com.gds.login.customview.logoView.LogoView
+            android:id="@+id/google_provider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/size_4dp"
+            app:logoImage="@drawable/google_logo"
+            app:logoText="Google" />
+
+        <br.com.gds.login.customview.logoView.LogoView
+            android:id="@+id/apple_provider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/size_4dp"
+            app:logoImage="@drawable/apple_logo"
+            app:logoText="Apple" />
+
+        <br.com.gds.login.customview.logoView.LogoView
+            android:id="@+id/facebook_provider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/size_4dp"
+            app:logoImage="@drawable/facebook_logo"
+            app:logoText="Facebook" />
+
+        <br.com.gds.login.customview.logoView.LogoView
+            android:id="@+id/game_center_provider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/size_4dp"
+            app:logoImage="@drawable/game_center_logo"
+            app:logoText="Game Center" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/linearLayoutCompat2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat">
+
+        <br.com.gds.login.customview.logoView.LogoView
+            android:id="@+id/github_provider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/size_4dp"
+            app:logoImage="@drawable/github_logo"
+            app:logoText="GitHUb" />
+
+        <br.com.gds.login.customview.logoView.LogoView
+            android:id="@+id/microsoft_provider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/size_4dp"
+            app:logoImage="@drawable/microsoft_logo"
+            app:logoText="Microsoft" />
+
+        <br.com.gds.login.customview.logoView.LogoView
+            android:id="@+id/play_games_provider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/size_4dp"
+            app:logoImage="@drawable/play_games_logo"
+            app:logoText="Play Games" />
+
+        <br.com.gds.login.customview.logoView.LogoView
+            android:id="@+id/twitter_provider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/size_4dp"
+            app:logoImage="@drawable/twitter_logo"
+            app:logoText="Twitter" />
+
+        <br.com.gds.login.customview.logoView.LogoView
+            android:id="@+id/yahoo_provider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/size_4dp"
+            app:logoImage="@drawable/yahoo_logo"
+            app:logoText="Yahoo" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/linearLayoutCompat3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat2">
+
+        <br.com.gds.login.customview.logoView.LogoView
+            android:id="@+id/phone_provider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/size_4dp"
+            app:logoImage="@drawable/baseline_phone_24"
+            app:logoText="Telefone" />
+
+        <br.com.gds.login.customview.logoView.LogoView
+            android:id="@+id/guests_provider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/size_4dp"
+            app:logoImage="@drawable/baseline_person_24"
+            app:logoText="Visitante" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>
