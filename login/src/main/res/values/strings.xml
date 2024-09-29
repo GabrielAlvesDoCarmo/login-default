@@ -10,4 +10,5 @@
     <string name="remember">Lembrar</string>
     <string name="esqueceu_sua_senha">Esqueceu sua senha ?</string>
     <string name="registre_se">Registre-se</string>
+    <string name="reset_password">Recupere Aqui!</string>
 </resources>

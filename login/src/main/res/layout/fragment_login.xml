@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -32,6 +33,7 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/size_8dp"
             app:boxStrokeColor="@color/black"
+            app:cursorColor="@color/edit_text_default"
             app:endIconMode="clear_text"
             app:hintTextColor="@color/black"
             app:layout_constraintBottom_toTopOf="@id/login_password_layout"
@@ -43,11 +45,11 @@
                 android:id="@+id/login_email_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/size_4dp"
                 android:focusable="true"
                 android:hint="@string/digite_seu_email"
                 android:inputType="textEmailAddress"
                 android:maxLength="100"
-                android:drawablePadding="@dimen/size_4dp"
                 android:maxLines="1"
                 android:textSize="@dimen/size_font_16sp" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -59,6 +61,7 @@
             android:padding="@dimen/size_8dp"
             app:boxStrokeColor="@color/black"
             app:endIconMode="password_toggle"
+            app:cursorColor="@color/edit_text_default"
             app:hintTextColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -152,7 +155,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/size_8dp"
-                android:text="@string/registre_se"
+                android:text="@string/reset_password"
                 android:textColor="@color/black"
                 android:textSize="@dimen/size_20sp"
                 android:textStyle="bold"
@@ -168,6 +171,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/size_32dp"
             android:backgroundTint="@color/black"
+            android:enabled="false"
+            android:background="@drawable/state_button_login"
             android:text="@string/login"
             android:textAllCaps="false"
             android:textColor="@color/white"
@@ -180,10 +185,10 @@
             android:layout_height="wrap_content"
             android:gravity="center|top"
             android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@id/login_btn_enter_app"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/login_btn_enter_app">
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/linearLayoutCompat"
