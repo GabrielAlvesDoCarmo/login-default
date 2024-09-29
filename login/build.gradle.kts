@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
+    id("maven-publish")
+
 }
 
 android {
@@ -34,6 +36,19 @@ android {
     }
     buildFeatures {
         viewBinding = true
+    }
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>(name = "release") {
+                from(components["release"])
+                groupId = "com.github.GabrielAlvesDoCarmo"
+                artifactId = "login-default"
+                version = "0.0.1"
+            }
+        }
     }
 }
 
