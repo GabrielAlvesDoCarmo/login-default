@@ -7,16 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import br.com.gds.login.R
 import br.com.gds.login.databinding.FragmentLoginBinding
-import br.com.gds.login.ui.login.viewmodel.EditTextState
+import br.com.gds.login.ui.login.model.UserLogin
+import br.com.gds.login.utils.extensions.edittext.EditTextState
 import br.com.gds.login.ui.login.viewmodel.LoginViewModel
-import br.com.gds.login.utils.applyStyle
-import br.com.gds.login.utils.toastMessage
-import br.com.gds.login.utils.validateEmailField
-import br.com.gds.login.utils.validatePasswordField
+import br.com.gds.login.utils.extensions.edittext.applyStyle
+import br.com.gds.login.utils.extensions.toastMessage
+import br.com.gds.login.utils.extensions.edittext.validateEmailField
+import br.com.gds.login.utils.extensions.edittext.validatePasswordField
 import kotlinx.coroutines.launch
-
 
 class LoginFragment : Fragment() {
 
@@ -27,6 +28,7 @@ class LoginFragment : Fragment() {
     private val viewModel: LoginViewModel by viewModels()
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
+    private val navController by lazy { findNavController() }
 
     private var email = false
     private var password = false
@@ -52,19 +54,37 @@ class LoginFragment : Fragment() {
 
     private fun setupListeners() = binding.apply {
         loginBtnRegister.setOnClickListener {
+            register()
             toastMessage("Clique btn register")
         }
         loginBtnResetPassword.setOnClickListener {
+            resetPassword()
             toastMessage("Clique btn reset password")
         }
         loginBtnEnterApp.setOnClickListener {
-            toastMessage("Clique btn enter app")
+            viewModel.login(
+                userLogin = getUserLogin()
+            )
         }
         loginCkRemember.setOnCheckedChangeListener { _, check ->
             if (check) viewModel.rememberDataUser() else viewModel.removeDataUser()
             toastMessage("Clique checkbox")
         }
         providersListeners()
+    }
+
+    private fun getUserLogin() = UserLogin(
+        email = binding.loginEmailEdit.text.toString(),
+        password = binding.loginPasswordEdit.text.toString(),
+        isRemember = binding.loginCkRemember.isChecked
+    )
+
+    private fun resetPassword() {
+        navController.navigate(R.id.action_loginFragment_to_resetPasswordFragment2)
+    }
+
+    private fun register() {
+        navController.navigate(R.id.action_loginFragment_to_registerFragment)
     }
 
     private fun providersListeners() = binding.apply {
@@ -126,12 +146,20 @@ class LoginFragment : Fragment() {
         }
     }
 
-    private fun enabledButton() {
-        binding.loginBtnEnterApp.isEnabled = email && password
+    private fun enabledButton() = binding.loginBtnEnterApp.apply {
+        isEnabled = email && password
     }
 
     private fun viewModelObserve() {
-
+        lifecycleScope.launch {
+            viewModel.uiState.collect { state ->
+//                when (state) {
+//                    is LoginUIState -> {}
+//                    is LoginUIState.Loading -> {}
+//                    is LoginUIState.Success -> {}
+//                }
+            }
+        }
     }
 
     private fun passwordInvalidStyle(state: EditTextState.Invalid) {

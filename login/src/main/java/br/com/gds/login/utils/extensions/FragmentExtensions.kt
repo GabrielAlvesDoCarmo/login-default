@@ -1,4 +1,4 @@
-package br.com.gds.login.utils
+package br.com.gds.login.utils.extensions
 
 import android.widget.Toast
 import androidx.fragment.app.Fragment

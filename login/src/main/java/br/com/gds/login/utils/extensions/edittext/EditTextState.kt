@@ -1,4 +1,4 @@
-package br.com.gds.login.ui.login.viewmodel
+package br.com.gds.login.utils.extensions.edittext
 
 sealed interface EditTextState {
     data object Valid : EditTextState

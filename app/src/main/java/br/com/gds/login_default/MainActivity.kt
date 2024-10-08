@@ -3,10 +3,7 @@ package br.com.gds.login_default
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.navigation.findNavController
-import br.com.gds.login.utils.adjustPaddingView
+import br.com.gds.login.utils.extensions.adjustPaddingView
 import br.com.gds.login_default.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

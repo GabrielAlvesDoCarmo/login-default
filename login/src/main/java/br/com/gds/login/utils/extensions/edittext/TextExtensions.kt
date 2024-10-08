@@ -1,11 +1,10 @@
-package br.com.gds.login.utils
+package br.com.gds.login.utils.extensions.edittext
 
 import android.content.res.ColorStateList
 import androidx.annotation.StyleRes
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import br.com.gds.login.ui.login.viewmodel.EditTextState
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.flow.MutableStateFlow
