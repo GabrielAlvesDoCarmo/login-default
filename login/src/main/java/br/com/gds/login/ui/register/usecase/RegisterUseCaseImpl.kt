@@ -5,7 +5,7 @@ import br.com.gds.login.utils.extensions.edittext.EditTextState
 
 class RegisterUseCaseImpl : RegisterUseCase {
     override suspend fun register(userRegister: UserRegister): Boolean {
-        TODO("Not yet implemented")
+        return true
     }
 
     override fun validateName(name: String): EditTextState {
@@ -26,7 +26,7 @@ class RegisterUseCaseImpl : RegisterUseCase {
     }
 
     override fun validatePassword(password: String): EditTextState {
-        Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$").apply {
+        Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!])(?=\\S+$).{8,20}$").apply {
             return if (!matches(password)) return EditTextState.Invalid(
                 errorMessage = "Senha inválida. A senha deve ter pelo menos 8 caracteres, uma letra maiúscula, uma letra minúscula, um número e um caractere especial."
             ) else EditTextState.Valid
@@ -34,7 +34,11 @@ class RegisterUseCaseImpl : RegisterUseCase {
     }
 
     override fun validateConfirmPassword(password: String, confirmPassword: String): EditTextState {
-       return if (password != confirmPassword) EditTextState.Invalid(
+        return if (
+            validatePassword(password) is EditTextState.Invalid
+            || validatePassword(confirmPassword) is EditTextState.Invalid
+            || password != confirmPassword
+        ) EditTextState.Invalid(
             errorMessage = "As senhas não coincidem."
         ) else EditTextState.Valid
     }
