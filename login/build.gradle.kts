@@ -37,6 +37,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
@@ -57,8 +58,11 @@ dependencies {
     implementation(libs.default.core)
     implementation(libs.default.design.system)
 
-    
+
     implementation(libs.firebase.auth)
+    implementation(libs.firebase.database)
+    implementation(libs.firebase.firestore)
+    implementation(libs.firebase.storage)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -69,13 +73,14 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.koin.android)
-
     implementation(libs.material)
+
     testImplementation(libs.junit)
     testImplementation(libs.koin.test.junit4)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     debugImplementation(libs.androidx.fragment.testing)
+    implementation("org.mockito.kotlin:mockito-kotlin:5.4.0")
 }
 
 kapt {

@@ -1,4 +1,4 @@
-package br.com.gds.login.repository.auth
+package br.com.gds.login.repository.auth.state
 
 sealed interface AuthRepositoryState {
     data class Success<T>(val data: T) : AuthRepositoryState

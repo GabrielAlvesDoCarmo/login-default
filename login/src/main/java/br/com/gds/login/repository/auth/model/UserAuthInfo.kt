@@ -1,4 +1,4 @@
-package br.com.gds.login.repository.auth
+package br.com.gds.login.repository.auth.model
 
 import android.net.Uri
 

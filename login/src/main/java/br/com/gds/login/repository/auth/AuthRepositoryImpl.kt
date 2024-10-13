@@ -1,16 +1,16 @@
 package br.com.gds.login.repository.auth
 
 import android.app.Activity
-import android.net.wifi.MloLink
 import br.com.gds.core.login_module.commons.network.requestCall
 import br.com.gds.core.login_module.commons.network.state.RequestState
 import br.com.gds.core.login_module.model.login.LoginRequest
 import br.com.gds.core.login_module.model.login.LoginResponse
 import br.com.gds.core.login_module.model.register.RegisterRequest
 import br.com.gds.core.login_module.model.resetpassword.ResetPasswordRequest
-import br.com.gds.login.utils.extensions.toDomain
+import br.com.gds.login.repository.auth.state.AuthRepositoryState
+import br.com.gds.login.utils.commons.toLoginDomain
+import br.com.gds.login.utils.commons.toRegisterDomain
 import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.ActionCodeInfo
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FederatedAuthProvider
@@ -19,25 +19,12 @@ import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.tasks.await
 
 
-class AuthRepositoryImpl : AuthRepository {
-    private val auth by lazy { FirebaseAuth.getInstance() }
+internal class AuthRepositoryImpl internal constructor(
+    private val auth: FirebaseAuth
+) : AuthRepository {
 
 //    val rererere5 = requestState.response.user.updatePhoneNumber()
 //    val rererere269 = requestState.response.user.delete()
-
-    override suspend fun login(
-        loginRequest: LoginRequest
-    ) = requestCall {
-        auth.signInWithEmailAndPassword(
-            loginRequest.email, loginRequest.password
-        ).await()
-    }.let { requestState ->
-        return@let when (requestState) {
-            is RequestState.Success -> successLogin(requestState.response)
-            is RequestState.Error -> errorLogin(requestState.message)
-        }
-    }
-
 
     override suspend fun register(
         registerRequest: RegisterRequest
@@ -52,6 +39,50 @@ class AuthRepositoryImpl : AuthRepository {
         }
     }
 
+    private fun successRegister(
+        authResult: AuthResult
+    ) = AuthRepositoryState.Success(
+        data = authResult.toRegisterDomain()
+    )
+
+    private fun errorRegister(
+        message: String
+    ) = AuthRepositoryState.Error(
+        message = message
+    )
+
+
+    override suspend fun login(
+        loginRequest: LoginRequest
+    ) = requestCall {
+        auth.signInWithEmailAndPassword(
+            loginRequest.email, loginRequest.password
+        ).await()
+    }.let { requestState ->
+        return@let when (requestState) {
+            is RequestState.Success -> successLogin(requestState.response)
+            is RequestState.Error -> errorLogin(requestState.message)
+        }
+    }
+
+    private fun successLogin(
+        requestState: AuthResult
+    ) = AuthRepositoryState.Success(
+        getLoginResponse(requestState)
+    )
+
+    private fun errorLogin(
+        message: String
+    ) = AuthRepositoryState.Error(
+        message = message
+    )
+
+    private fun getLoginResponse(
+        authResult: AuthResult
+    ) = LoginResponse(
+        success = true,
+        additionalInfo = authResult.toLoginDomain()
+    )
 
     override suspend fun logout() = requestCall {
         auth.signOut()
@@ -62,6 +93,15 @@ class AuthRepositoryImpl : AuthRepository {
         }
     }
 
+    private fun successLogout(): AuthRepositoryState {
+        TODO("Not yet implemented")
+    }
+
+    private fun errorLogout(
+        message: String
+    ): AuthRepositoryState {
+        TODO("Not yet implemented")
+    }
 
     override suspend fun resetPassword(
         resetRequest: ResetPasswordRequest
@@ -72,6 +112,16 @@ class AuthRepositoryImpl : AuthRepository {
             is RequestState.Success -> successResetPassword()
             is RequestState.Error -> errorResetPassword(requestState.message)
         }
+    }
+
+    private fun successResetPassword(): AuthRepositoryState {
+        TODO("Not yet implemented")
+    }
+
+    private fun errorResetPassword(
+        message: String
+    ): AuthRepositoryState {
+        TODO("Not yet implemented")
     }
 
     override suspend fun verifyPasswordResetCode(
@@ -253,58 +303,4 @@ class AuthRepositoryImpl : AuthRepository {
     }
 
 
-    private fun successResetPassword(): AuthRepositoryState {
-        TODO("Not yet implemented")
-    }
-
-    private fun errorResetPassword(
-        message: String
-    ): AuthRepositoryState {
-        TODO("Not yet implemented")
-    }
-
-    private fun successLogout(): AuthRepositoryState {
-        TODO("Not yet implemented")
-    }
-
-    private fun errorLogout(
-        message: String
-    ): AuthRepositoryState {
-        TODO("Not yet implemented")
-    }
-
-
-    private fun successRegister(
-        requestState: AuthResult
-    ): AuthRepositoryState {
-        TODO("Not yet implemented")
-    }
-
-    private fun errorRegister(
-        message: String
-    ): AuthRepositoryState {
-        TODO("Not yet implemented")
-
-    }
-
-    private fun successLogin(
-        requestState: AuthResult
-    ) = AuthRepositoryState.Success(
-        getLoginResponse(requestState)
-    )
-
-    private fun errorLogin(
-        message: String
-    ) = AuthRepositoryState.Error(
-        message = message
-    )
-
-    private fun getLoginResponse(
-        authResult: AuthResult
-    ) = LoginResponse(
-        success = true,
-        additionalInfo = authResult.user.toDomain(
-            authResult.additionalUserInfo?.isNewUser
-        )
-    )
 }

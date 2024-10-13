@@ -1,11 +1,13 @@
 package br.com.gds.login.ui.register.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import br.com.gds.login.ui.register.model.UserRegister
 import br.com.gds.login.ui.register.usecase.RegisterUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 
 class RegisterViewModel (
     private val useCase: RegisterUseCase
@@ -20,7 +22,13 @@ class RegisterViewModel (
     val uiState: StateFlow<RegisterState> = _uiState.asStateFlow()
 
     fun register(userRegister: UserRegister) {
-
+        viewModelScope.launch {
+            val res = useCase.register(userRegister)
+            when(res){
+                true -> println("Sucess")
+                false -> println("error")
+            }
+        }
     }
 
     fun onNameChanged(name: String) {

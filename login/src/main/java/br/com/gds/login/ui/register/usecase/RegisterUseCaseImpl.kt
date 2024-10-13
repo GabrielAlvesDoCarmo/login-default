@@ -1,11 +1,26 @@
 package br.com.gds.login.ui.register.usecase
 
+import br.com.gds.core.login_module.model.register.RegisterResponse
+import br.com.gds.login.repository.auth.AuthRepository
+import br.com.gds.login.repository.auth.model.UserAuthInfo
+import br.com.gds.login.repository.auth.state.AuthRepositoryState
+import br.com.gds.login.repository.register.RegisterRepository
 import br.com.gds.login.ui.register.model.UserRegister
+import br.com.gds.login.utils.commons.toRegisterRequest
 import br.com.gds.login.utils.extensions.edittext.EditTextState
 
-class RegisterUseCaseImpl : RegisterUseCase {
+class RegisterUseCaseImpl(
+    private val registerRepository: RegisterRepository
+) : RegisterUseCase {
     override suspend fun register(userRegister: UserRegister): Boolean {
-        return true
+        val requestState = registerRepository.register(registerRequest = userRegister.toRegisterRequest())
+        return when(requestState){
+            is AuthRepositoryState.Error -> TODO()
+            is AuthRepositoryState.Success<*> -> {
+                val userAuthInfo = requestState.data as? RegisterResponse
+                true
+            }
+        }
     }
 
     override fun validateName(name: String): EditTextState {

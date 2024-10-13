@@ -4,6 +4,7 @@ import android.app.Activity
 import br.com.gds.core.login_module.model.login.LoginRequest
 import br.com.gds.core.login_module.model.register.RegisterRequest
 import br.com.gds.core.login_module.model.resetpassword.ResetPasswordRequest
+import br.com.gds.login.repository.auth.state.AuthRepositoryState
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FederatedAuthProvider
 import com.google.firebase.auth.FirebaseUser
