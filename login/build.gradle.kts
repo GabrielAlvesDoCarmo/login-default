@@ -54,7 +54,10 @@ afterEvaluate {
 }
 
 dependencies {
-    implementation(libs.core.default)
+    implementation(libs.default.core)
+    implementation(libs.default.design.system)
+
+    
     implementation(libs.firebase.auth)
 
     implementation(libs.androidx.core.ktx)

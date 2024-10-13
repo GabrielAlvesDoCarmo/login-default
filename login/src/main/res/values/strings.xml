@@ -3,7 +3,8 @@
     <string name="teste">hhhhhh</string>
     <string name="email">Email</string>
     <string name="digite_seu_email">Digite seu email :</string>
-    <string name="digite_sua_senha">Digite sua senha:</string>
+    <string name="digite_sua_senha">Digite sua senha :</string>
+    <string name="confirm_sua_senha">Confirme sua senha :</string>
     <string name="login">Login</string>
     <string name="ainda_nao_tem_cadastro">Ainda não possue cadastro ?</string>
     <string name="cadastrese"> Cadastre-se</string>
@@ -11,4 +12,5 @@
     <string name="esqueceu_sua_senha">Esqueceu sua senha ?</string>
     <string name="registre_se">Registre-se</string>
     <string name="reset_password">Recupere Aqui!</string>
+    <string name="digite_seu_nome">Digite seu nome :</string>
 </resources>

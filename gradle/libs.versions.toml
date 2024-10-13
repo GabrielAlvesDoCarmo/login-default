@@ -1,6 +1,7 @@
 [versions]
 agp = "8.5.0"
 coreDefault = "1.0.10"
+designSystem = "0.0.1"
 hiltAndroid = "2.44"
 koinAndroid = "4.0.0"
 kotlin = "1.9.0"
@@ -25,7 +26,8 @@ firebaseAuth = "23.0.0"
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-fragment-testing = { module = "androidx.fragment:fragment-testing", version.ref = "fragmentKtx" }
-core-default = { module = "com.github.GabrielAlvesDoCarmo:core-default", version.ref = "coreDefault" }
+default-core = { module = "com.github.GabrielAlvesDoCarmo:core-default", version.ref = "coreDefault" }
+default-design-system = { module = "com.github.GabrielAlvesDoCarmo:design-system", version.ref = "designSystem" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroid" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
