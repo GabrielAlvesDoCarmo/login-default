@@ -5,10 +5,10 @@ import br.com.gds.core.login_module.model.login.LoginResponse
 import br.com.gds.core.login_module.model.register.RegisterRequest
 import br.com.gds.core.login_module.model.register.RegisterResponse
 import br.com.gds.login.repository.auth.model.UserAuthInfo
-import br.com.gds.login.ui.register.model.UserRegister
+import br.com.gds.login.feature.register.personal.model.RegisterPersonalUser
 import com.google.firebase.auth.AuthResult
 
-fun UserRegister.toRegisterRequest() = RegisterRequest(
+fun RegisterPersonalUser.toRegisterRequest() = RegisterRequest(
     email = this.email, password = this.password
 )
 

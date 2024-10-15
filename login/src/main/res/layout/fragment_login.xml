@@ -6,7 +6,7 @@
     android:id="@+id/login_container_scroll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.login.view.LoginFragment">
+    tools:context=".feature.login.view.LoginFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/login_container_constraint"

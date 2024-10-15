@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/login_graph"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/registerFragment">
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="br.com.gds.login.ui.login.view.LoginFragment"
+        android:name="br.com.gds.login.feature.login.view.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -19,12 +19,19 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="br.com.gds.login.ui.register.view.RegisterFragment"
+        android:name="br.com.gds.login.feature.register.personal.view.RegisterPersonalFragment"
         android:label="fragment_register"
-        tools:layout="@layout/fragment_register" />
+        tools:layout="@layout/fragment_register_personal" >
+        <argument
+            android:name="registerUI"
+            app:argType="br.com.gds.login.feature.register.personal.model.RegisterPersonalUI"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
     <fragment
         android:id="@+id/resetPasswordFragment2"
-        android:name="br.com.gds.login.ui.resetpassword.view.ResetPasswordFragment"
+        android:name="br.com.gds.login.feature.resetpassword.view.ResetPasswordFragment"
         android:label="fragment_reset_password"
         tools:layout="@layout/fragment_reset_password" />
+    <action android:id="@+id/action_global_loginFragment" app:destination="@id/loginFragment" />
 </navigation>

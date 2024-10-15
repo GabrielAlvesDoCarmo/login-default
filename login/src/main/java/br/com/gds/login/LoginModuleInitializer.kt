@@ -1,28 +1,28 @@
 package br.com.gds.login
 
 import android.content.Context
-import br.com.gds.login.ui.login.view.LoginFragment
-import br.com.gds.login.ui.register.view.RegisterFragment
-import br.com.gds.login.ui.resetpassword.view.ResetPasswordFragment
+import androidx.navigation.NavController
+import br.com.gds.login.feature.register.personal.view.RegisterPersonalFragment
 
 object LoginModuleInitializer {
     data class Builder (
         val context: Context,
+        val navController: NavController,
         val loginModuleDependency: LoginModuleDependency
     ){
-        fun buildLogin(): LoginFragment {
+        fun buildLogin() {
             LoginModuleSession.loginModuleDependency = loginModuleDependency
-            return LoginModuleRouter.goToLogin()
+            return LoginModuleRouter(navController).navigateGlobalToLogin()
         }
 
-        fun buildRegister(): RegisterFragment {
+        fun buildRegister(): RegisterPersonalFragment {
             LoginModuleSession.loginModuleDependency = loginModuleDependency
-            return RegisterFragment.newInstance()
+            return RegisterPersonalFragment.newInstance()
         }
-
-        fun buildResetPassword(): ResetPasswordFragment {
-            LoginModuleSession.loginModuleDependency = loginModuleDependency
-            return ResetPasswordFragment.newInstance()
-        }
+// nao foi criado pois nao ser acessado fora do fluxo
+//        fun buildResetPassword(): ResetPasswordFragment {
+//            LoginModuleSession.loginModuleDependency = loginModuleDependency
+//            return ResetPasswordFragment.newInstance()
+//        }
     }
 }

@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".feature.register.personal.view.RegisterPersonalFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/size_24dp">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/register_text_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/size_64dp"
+            android:text="@string/registre_se"
+            android:textColor="@color/black"
+            android:textSize="@dimen/size_font_32sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/register_image"
+            android:layout_width="130dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="@dimen/size_32dp"
+            android:background="@drawable/bg_icon_provider"
+            android:src="@drawable/baseline_person_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/register_text_title"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/register_nickname_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_32dp"
+            android:padding="@dimen/size_8dp"
+            app:boxStrokeColor="@color/black"
+            app:cursorColor="@color/edit_text_default"
+            app:endIconMode="clear_text"
+            android:visibility="gone"
+            tools:visibility="visible"
+            app:hintTextColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/register_image"
+            app:startIconDrawable="@drawable/baseline_person_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/register_nickname_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/size_4dp"
+                android:focusable="true"
+                android:hint="@string/digite_seu_nickname"
+                android:inputType="text"
+                android:maxLength="100"
+                android:maxLines="1"
+                android:textSize="@dimen/size_font_16sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/register_name_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_8dp"
+            android:padding="@dimen/size_8dp"
+            app:boxStrokeColor="@color/black"
+            app:cursorColor="@color/edit_text_default"
+            app:endIconMode="clear_text"
+            app:hintTextColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/register_nickname_layout"
+            app:startIconDrawable="@drawable/baseline_person_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/register_name_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/size_4dp"
+                android:focusable="true"
+                android:hint="@string/digite_seu_nome"
+                android:inputType="text"
+                android:maxLength="100"
+                android:maxLines="1"
+                android:textSize="@dimen/size_font_16sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/login_email_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_8dp"
+            android:padding="@dimen/size_8dp"
+            app:boxStrokeColor="@color/black"
+            app:cursorColor="@color/edit_text_default"
+            app:endIconMode="clear_text"
+            app:hintTextColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/register_name_layout"
+            app:startIconDrawable="@drawable/baseline_email_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/login_email_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/size_4dp"
+                android:focusable="true"
+                android:hint="@string/digite_seu_email"
+                android:inputType="textEmailAddress"
+                android:maxLength="100"
+                android:maxLines="1"
+                android:textSize="@dimen/size_font_16sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/register_password_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_8dp"
+            android:padding="@dimen/size_8dp"
+            app:boxStrokeColor="@color/black"
+            app:cursorColor="@color/edit_text_default"
+            app:endIconMode="password_toggle"
+            app:hintTextColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/login_email_layout"
+            app:startIconDrawable="@drawable/baseline_password_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/register_password_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/size_4dp"
+                android:focusable="true"
+                android:hint="@string/digite_sua_senha"
+                android:inputType="textEmailAddress"
+                android:maxLength="100"
+                android:maxLines="1"
+                android:textSize="@dimen/size_font_16sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/register_confirm_password_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_8dp"
+            android:padding="@dimen/size_8dp"
+            app:boxStrokeColor="@color/black"
+            app:cursorColor="@color/edit_text_default"
+            app:endIconMode="password_toggle"
+            app:hintTextColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/register_password_layout"
+            app:passwordToggleEnabled="true"
+            app:startIconDrawable="@drawable/baseline_password_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/register_confirm_password_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/size_4dp"
+                android:focusable="true"
+                android:hint="@string/confirm_sua_senha"
+                android:inputType="textPassword"
+                android:maxLength="100"
+                android:maxLines="1"
+                android:textSize="@dimen/size_font_16sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/ck_use_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Utilizar nickname"
+            app:layout_constraintStart_toStartOf="@id/register_confirm_password_layout"
+            app:layout_constraintTop_toBottomOf="@id/register_confirm_password_layout"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cadastrar Endereco"
+            android:textAllCaps="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/register_confirm_password_layout" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_register"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="@dimen/size_16dp"
+            android:text="@string/cadastrese"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ck_use_nickname" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

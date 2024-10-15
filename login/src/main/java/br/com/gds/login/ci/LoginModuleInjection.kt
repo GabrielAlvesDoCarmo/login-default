@@ -2,11 +2,11 @@ package br.com.gds.login.ci
 
 import br.com.gds.login.repository.auth.AuthRepository
 import br.com.gds.login.repository.auth.AuthRepositoryImpl
-import br.com.gds.login.repository.register.RegisterRepository
-import br.com.gds.login.repository.register.RegisterRepositoryImpl
-import br.com.gds.login.ui.register.usecase.RegisterUseCase
-import br.com.gds.login.ui.register.usecase.RegisterUseCaseImpl
-import br.com.gds.login.ui.register.viewmodel.RegisterViewModel
+import br.com.gds.login.feature.register.personal.repository_firebase.RegisterPersonalRepository
+import br.com.gds.login.feature.register.personal.repository_firebase.RegisterPersonalRepositoryImpl
+import br.com.gds.login.feature.register.personal.usecase.RegisterPersonalUseCase
+import br.com.gds.login.feature.register.personal.usecase.RegisterPersonalUseCaseImpl
+import br.com.gds.login.feature.register.personal.viewmodel.RegisterPersonalViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
@@ -34,8 +34,8 @@ private val authRepository = module {
         AuthRepositoryImpl(get())
     }
 
-    single<RegisterRepository> {
-        RegisterRepositoryImpl(
+    single<RegisterPersonalRepository> {
+        RegisterPersonalRepositoryImpl(
             auth = get(),
             realtime = get(),
             firestore = get(),
@@ -45,16 +45,16 @@ private val authRepository = module {
 }
 
 private val useCases = module {
-    factory<RegisterUseCase> {
-        RegisterUseCaseImpl(
-            registerRepository = get()
+    factory<RegisterPersonalUseCase> {
+        RegisterPersonalUseCaseImpl(
+            registerPersonalRepository = get()
         )
     }
 }
 
 private val viewModels = module {
     viewModel {
-        RegisterViewModel(
+        RegisterPersonalViewModel(
             useCase = get()
 
         )

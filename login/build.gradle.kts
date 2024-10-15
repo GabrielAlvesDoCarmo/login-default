@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     id("kotlin-kapt")
     id("maven-publish")
+    id("androidx.navigation.safeargs.kotlin")
     alias(libs.plugins.google.gms.google.services)
 }
 
@@ -12,11 +13,9 @@ android {
 
     defaultConfig {
         minSdk = 28
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
         multiDexEnabled = true
-
     }
 
     buildTypes {
@@ -81,6 +80,7 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     debugImplementation(libs.androidx.fragment.testing)
     implementation("org.mockito.kotlin:mockito-kotlin:5.4.0")
+
 }
 
 kapt {

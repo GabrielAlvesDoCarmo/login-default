@@ -2,7 +2,6 @@
 agp = "8.5.0"
 coreDefault = "1.0.11"
 designSystem = "0.0.1"
-hiltAndroid = "2.44"
 koinAndroid = "4.0.0"
 kotlin = "2.0.0"
 coreKtx = "1.13.1"
@@ -26,14 +25,13 @@ firebaseDatabase = "21.0.0"
 firebaseFirestore = "25.1.0"
 firebaseStorage = "21.0.1"
 firebaseCommonKtx = "21.0.0"
+navigateArgsVersion = "2.8.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-fragment-testing = { module = "androidx.fragment:fragment-testing", version.ref = "fragmentKtx" }
 default-core = { module = "com.github.GabrielAlvesDoCarmo:core-default", version.ref = "coreDefault" }
 default-design-system = { module = "com.github.GabrielAlvesDoCarmo:design-system", version.ref = "designSystem" }
-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
-hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroid" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -64,4 +62,4 @@ jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = 
 android-library = { id = "com.android.library", version.ref = "agp" }
 dagger-hilt = {id = "com.google.dagger.hilt.android", version.ref = "daggerHiltVersion"}
 google-gms-google-services = { id = "com.google.gms.google-services", version.ref = "googleGmsGoogleServices" }
-
+navigation-args = {id = "androidx.navigation.safeargs", version.ref = "navigateArgsVersion"}

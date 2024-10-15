@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "817688960042",
+    "project_id": "login-default-module",
+    "storage_bucket": "login-default-module.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:817688960042:android:8ff3bc1826b4eaa8797753",
+        "android_client_info": {
+          "package_name": "br.com.gds.login_default"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHyRMdG_coj1Em8za8zddofL0Wa6qPMmI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
