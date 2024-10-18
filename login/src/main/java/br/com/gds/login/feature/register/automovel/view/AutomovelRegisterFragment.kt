@@ -1,4 +1,4 @@
-package br.com.gds.login.feature.register.address.view
+package br.com.gds.login.feature.register.automovel.view
 
 import androidx.fragment.app.viewModels
 import android.os.Bundle
@@ -8,17 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import br.com.gds.login.LoginModuleSession
 import br.com.gds.login.R
-import br.com.gds.login.feature.register.address.viewmodel.AddressRegisterViewModel
+import br.com.gds.login.feature.register.automovel.viewmodel.AutomovelRegisterViewModel
 
-class AddressRegisterFragment : Fragment() {
+class AutomovelRegisterFragment : Fragment() {
 
     companion object {
-        fun newInstance() = AddressRegisterFragment()
+        fun newInstance() = AutomovelRegisterFragment()
     }
 
-    private val viewModel: AddressRegisterViewModel by viewModels()
+    private val viewModel: AutomovelRegisterViewModel by viewModels()
     private val fragmentUI by lazy {
-        LoginModuleSession.loginModuleDependency?.addressRegisterFragment
+        LoginModuleSession.loginModuleDependency?.autoRegisterFragment
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +31,6 @@ class AddressRegisterFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_address_register, container, false)
+        return inflater.inflate(R.layout.fragment_automovel_register, container, false)
     }
 }

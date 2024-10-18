@@ -4,18 +4,18 @@ import br.com.gds.core.login_module.model.register.RegisterResponse
 import br.com.gds.login.repository.auth.state.AuthRepositoryState
 import br.com.gds.login.feature.register.personal.repository_firebase.RegisterPersonalRepository
 import br.com.gds.login.feature.register.personal.model.RegisterPersonalUser
+import br.com.gds.login.feature.register.personal.repository_firebase.RegisterPersonalState
 import br.com.gds.login.utils.commons.toRegisterRequest
 import br.com.gds.login.utils.extensions.edittext.EditTextState
 
 class RegisterPersonalUseCaseImpl(
-    private val registerPersonalRepository: RegisterPersonalRepository
+    private val repository: RegisterPersonalRepository
 ) : RegisterPersonalUseCase {
     override suspend fun register(registerPersonalUser: RegisterPersonalUser): Boolean {
-        val requestState = registerPersonalRepository.register(registerRequest = registerPersonalUser.toRegisterRequest())
+        val requestState = repository.register(registerRequest = registerPersonalUser.toRegisterRequest())
         return when(requestState){
-            is AuthRepositoryState.Error -> TODO()
-            is AuthRepositoryState.Success<*> -> {
-                val userAuthInfo = requestState.data as? RegisterResponse
+            is RegisterPersonalState.Error -> TODO()
+            is RegisterPersonalState.Success -> {
                 true
             }
         }

@@ -39,7 +39,6 @@ private val authRepository = module {
             auth = get(),
             realtime = get(),
             firestore = get(),
-            storage = get()
         )
     }
 }
@@ -47,7 +46,7 @@ private val authRepository = module {
 private val useCases = module {
     factory<RegisterPersonalUseCase> {
         RegisterPersonalUseCaseImpl(
-            registerPersonalRepository = get()
+            repository = get()
         )
     }
 }

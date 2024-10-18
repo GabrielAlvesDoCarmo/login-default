@@ -30,5 +30,4 @@ private fun AuthResult.getUserInfoResponse() = UserAuthInfo(
     isAnonymous = this.user?.isAnonymous ?: false,
     isEmailVerified = this.user?.isEmailVerified ?: false,
     phoneNumber = this.user?.phoneNumber.orEmpty(),
-    photoUrl = this.user?.photoUrl ?: Uri.EMPTY,
 )

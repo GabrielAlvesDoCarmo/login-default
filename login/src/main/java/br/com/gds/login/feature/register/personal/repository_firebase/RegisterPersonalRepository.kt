@@ -6,5 +6,5 @@ import br.com.gds.login.repository.auth.state.AuthRepositoryState
 interface RegisterPersonalRepository {
     suspend fun register(
         registerRequest: RegisterRequest
-    ) : AuthRepositoryState
+    ) : RegisterPersonalState
 }

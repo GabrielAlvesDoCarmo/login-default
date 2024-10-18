@@ -1,7 +1,5 @@
 package br.com.gds.login.repository.auth.model
 
-import android.net.Uri
-
 data class UserAuthInfo(
     val isNewUser:Boolean,
     val displayName: String,
@@ -10,5 +8,4 @@ data class UserAuthInfo(
     val isAnonymous: Boolean,
     val isEmailVerified: Boolean,
     val phoneNumber: String,
-    val photoUrl: Uri
 )

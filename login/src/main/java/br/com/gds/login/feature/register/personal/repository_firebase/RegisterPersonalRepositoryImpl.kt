@@ -19,7 +19,6 @@ class RegisterPersonalRepositoryImpl internal constructor(
     private val auth : FirebaseAuth,
     private val realtime : FirebaseDatabase,
     private val firestore : FirebaseFirestore,
-    private val storage : FirebaseStorage
 ): RegisterPersonalRepository {
 
     override suspend fun register(
@@ -28,57 +27,43 @@ class RegisterPersonalRepositoryImpl internal constructor(
         auth.createUserWithEmailAndPassword(
             registerRequest.email, registerRequest.password
         ).await()
+
     }.let { requestState ->
         return@let when (requestState) {
-            is RequestState.Success -> successAuthRegister(requestState.response)
-            is RequestState.Error -> errorAuthRegister(requestState.message)
+            is RequestState.Success -> {
+                saveRealtime(
+                    registerResponse = requestState.response.toRegisterDomain()
+                )
+            }
+            is RequestState.Error -> RegisterPersonalState.Error(
+                message = requestState.message
+            )
         }
     }
 
-    private suspend fun successAuthRegister(
-        authResult: AuthResult
-    ): AuthRepositoryState {
-        val registerResponse = authResult.toRegisterDomain()
-        saveRealtime(registerResponse)
-        return AuthRepositoryState.Success(
-            data = authResult.toRegisterDomain()
-        )
-    }
 
-    private fun errorAuthRegister(
-        message: String
-    ) = AuthRepositoryState.Error(
-        message = message
-    )
-
-    private suspend fun saveRealtime(registerResponse: RegisterResponse) {
+    private suspend fun saveRealtime(registerResponse: RegisterResponse) : RegisterPersonalState{
         val authUser = registerResponse.additionalInfo as UserAuthInfo
         val value = hashMapOf(
             "isOnline" to true,
+            "name" to authUser.displayName,
+            "email" to authUser.email
         )
         val requestCall = requestCall {
             realtime.reference.child(
                  authUser.uid
             ).setValue(value).await()
         }
-        when (requestCall) {
+        return when (requestCall) {
             is RequestState.Error -> errorSaveRealtime(requestCall.message)
-            is RequestState.Success -> successSaveRealtime(
-                registerResponse = registerResponse,
-                response = requestCall.response
-            )
+            is RequestState.Success -> saveDataRegisterFireStore(registerResponse)
         }
     }
 
-    private suspend fun successSaveRealtime(registerResponse: RegisterResponse, response: Void?) {
-        saveDataRegisterFireStore(registerResponse)
+    private fun errorSaveRealtime(message: String) : RegisterPersonalState {
+        return RegisterPersonalState.Error(message)
     }
-
-    private fun errorSaveRealtime(message: String) {
-
-    }
-
-    suspend fun saveDataRegisterFireStore(registerResponse: RegisterResponse) {
+    suspend fun saveDataRegisterFireStore(registerResponse: RegisterResponse) : RegisterPersonalState {
         val authUser = registerResponse.additionalInfo as UserAuthInfo
 
         val requestCall = requestCall {
@@ -87,41 +72,23 @@ class RegisterPersonalRepositoryImpl internal constructor(
                 .document("teste ${authUser.displayName}")
                 .set(authUser).await()
         }
-        when (requestCall) {
+       return when (requestCall) {
             is RequestState.Error -> errorSaveDataRegisterFireStore(requestCall.message)
             is RequestState.Success -> successSaveDataRegisterFireStore(registerResponse,requestCall.response)
         }
     }
 
-    private suspend fun successSaveDataRegisterFireStore(
+    private fun successSaveDataRegisterFireStore(
         registerResponse: RegisterResponse,
         response: Void?
-    ) {
-        saveImageRegisterStorage(registerResponse)
+    ): RegisterPersonalState {
+       return RegisterPersonalState.Error(registerResponse.message.toString())
     }
 
-    private fun errorSaveDataRegisterFireStore(message: String) {
-//        TODO("Not yet implemented")
+    private fun errorSaveDataRegisterFireStore(message: String) : RegisterPersonalState{
+            return RegisterPersonalState.Error(message)
     }
 
-    suspend fun saveImageRegisterStorage(registerResponse: RegisterResponse) {
-        val authUser = registerResponse.additionalInfo as UserAuthInfo
 
-        val requestCall = requestCall {
-            storage.reference.child("teste").putFile(authUser.photoUrl).await()
-        }
-        when (requestCall) {
-            is RequestState.Error -> errorSaveImageRegisterStorage(requestCall.message)
-            is RequestState.Success -> successSaveImageRegisterStorage(requestCall.response)
-        }
-    }
-
-    private fun successSaveImageRegisterStorage(response: UploadTask.TaskSnapshot?) {
-        response?.storage?.downloadUrl
-    }
-
-    private fun errorSaveImageRegisterStorage(message: String) {
-        TODO("Not yet implemented")
-    }
 
 }

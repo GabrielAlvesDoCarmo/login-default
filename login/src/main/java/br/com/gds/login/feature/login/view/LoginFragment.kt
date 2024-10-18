@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import br.com.gds.login.LoginModuleRouter
+import br.com.gds.login.LoginModuleSession
 import br.com.gds.login.R
 import br.com.gds.login.databinding.FragmentLoginBinding
 import br.com.gds.login.feature.login.model.UserLogin
@@ -29,6 +30,10 @@ class LoginFragment : Fragment() {
     private var router : LoginModuleRouter? = null
     private var email = false
     private var password = false
+
+    private val fragmentUI by lazy {
+        LoginModuleSession.loginModuleDependency?.loginFragment
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -78,12 +83,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun register() {
-        router?.navigateLoginToRegister(
-            registerPersonalUI = RegisterPersonalUI(
-                enableButtonAddress = true,
-                enableNickname = false
-            )
-        )
+        router?.navigateLoginToRegister()
     }
 
     private fun providersListeners() = binding.apply {

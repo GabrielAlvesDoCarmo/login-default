@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/login_graph"
-    app:startDestination="@id/registerFragment">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/loginFragment"
@@ -22,16 +22,35 @@
         android:name="br.com.gds.login.feature.register.personal.view.RegisterPersonalFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register_personal" >
-        <argument
-            android:name="registerUI"
-            app:argType="br.com.gds.login.feature.register.personal.model.RegisterPersonalUI"
-            app:nullable="true"
-            android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_register_to_addressRegister"
+            app:destination="@id/addressRegisterFragment" />
+        <action
+            android:id="@+id/action_register_to_automovelRegister"
+            app:destination="@id/automovelRegisterFragment" />
     </fragment>
     <fragment
         android:id="@+id/resetPasswordFragment2"
         android:name="br.com.gds.login.feature.resetpassword.view.ResetPasswordFragment"
         android:label="fragment_reset_password"
         tools:layout="@layout/fragment_reset_password" />
+    <fragment
+        android:id="@+id/addressRegisterFragment"
+        android:name="br.com.gds.login.feature.register.address.view.AddressRegisterFragment"
+        android:label="fragment_address_register"
+        tools:layout="@layout/fragment_address_register" >
+        <action
+            android:id="@+id/action_addressRegister_to_automovelRegister"
+            app:destination="@id/automovelRegisterFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/automovelRegisterFragment"
+        android:name="br.com.gds.login.feature.register.automovel.view.AutomovelRegisterFragment"
+        android:label="fragment_automovel_register"
+        tools:layout="@layout/fragment_automovel_register" />
+
     <action android:id="@+id/action_global_loginFragment" app:destination="@id/loginFragment" />
+    <action android:id="@+id/action_global_addressRegisterFragment" app:destination="@id/addressRegisterFragment" />
+    <action android:id="@+id/action_global_automovelRegisterFragment" app:destination="@id/automovelRegisterFragment" />
+    <action android:id="@+id/action_global_registerFragment" app:destination="@id/registerFragment" />
 </navigation>

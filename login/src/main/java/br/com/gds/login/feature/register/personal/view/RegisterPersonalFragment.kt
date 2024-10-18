@@ -1,6 +1,5 @@
 package br.com.gds.login.feature.register.personal.view
 
-import android.Manifest
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,37 +8,23 @@ import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.navArgs
+import br.com.gds.login.LoginModuleSession
 import br.com.gds.login.databinding.FragmentRegisterPersonalBinding
 import br.com.gds.login.feature.register.personal.model.RegisterPersonalUser
 import br.com.gds.login.feature.register.personal.viewmodel.RegisterPersonalViewModel
 import br.com.gds.login.feature.register.personal.viewmodel.isFormValid
 import br.com.gds.login.utils.extensions.appendMessageToFile
 import br.com.gds.login.utils.extensions.edittext.EditTextState
-import br.com.gds.login.utils.extensions.requestPermission
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RegisterPersonalFragment : Fragment() {
-    companion object {
-        fun newInstance() = RegisterPersonalFragment()
-    }
 
     private lateinit var binding: FragmentRegisterPersonalBinding
     private val viewModel: RegisterPersonalViewModel by viewModel()
-    private val registerArgs: RegisterPersonalFragmentArgs by navArgs()
-    private val isBtnAddressEnabled get() = registerArgs.registerUI?.enableButtonAddress
-    private val isNicknameEnabled get() = registerArgs.registerUI?.enableNickname
-
-    val requestPermission = requestPermission(
-        permission = Manifest.permission.CAMERA,
-        onGranted = {
-
-        },
-        onDenied = {
-
-        }
-    )
+    private val fragmentUI by lazy {
+        LoginModuleSession.loginModuleDependency?.registerFragment
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -84,16 +69,14 @@ class RegisterPersonalFragment : Fragment() {
                     confirmPassword = text.toString()
                 )
             }
-            registerImage.setOnClickListener {
-                requestPermission.launch(Manifest.permission.CAMERA)
-            }
+
             buttonRegister.setOnClickListener {
                 viewModel.register(
                     registerPersonalUser = getUserRegister()
                 )
             }
-            ckUseNickname.isVisible = isNicknameEnabled ?: false
-            buttonAddress.isVisible = isBtnAddressEnabled ?: true
+            ckUseNickname.isVisible = fragmentUI?.enableNickname ?: true
+            buttonAddress.isVisible = fragmentUI?.enableButtonAddress ?: true
 
             ckUseNickname.setOnClickListener {
                 registerNicknameLayout.isVisible = ckUseNickname.isChecked
@@ -106,6 +89,8 @@ class RegisterPersonalFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.formState.collect { state ->
                 binding.apply {
+//                    binding.registerNicknameLayout.setStartIconTintMode(PorterDuff.Mode.CLEAR)
+
                     registerNameLayout.error = if (state.nameState is EditTextState.Invalid)
                         state.nameState.errorMessage else null
 
@@ -126,8 +111,9 @@ class RegisterPersonalFragment : Fragment() {
         }
     }
 
+
+
     private fun getUserRegister() = RegisterPersonalUser(
-        immage = binding.registerImage.toString(),
         name = binding.registerNameEdit.text.toString(),
         email = binding.loginEmailEdit.text.toString(),
         password = binding.registerPasswordEdit.text.toString(),
