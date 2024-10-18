@@ -1,9 +1,13 @@
 package br.com.gds.login.feature.register.personal.viewmodel
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.gds.login.feature.register.personal.model.RegisterPersonalUser
 import br.com.gds.login.feature.register.personal.usecase.RegisterPersonalUseCase
+import br.com.gds.login.feature.register.personal.usecase.RegisterUseCaseState
+import br.com.gds.login.utils.commons.FormState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -18,17 +22,25 @@ class RegisterPersonalViewModel (
     val formState: StateFlow<FormState> = _formState.asStateFlow()
 
 
-    private val _uiState = MutableStateFlow(RegisterPersonalState())
-    val uiState: StateFlow<RegisterPersonalState> = _uiState.asStateFlow()
+    private var _uiState : MutableLiveData<RegisterPersonalState> = MutableLiveData()
+    val uiState: LiveData<RegisterPersonalState> = _uiState
 
     fun register(registerPersonalUser: RegisterPersonalUser) {
+        _uiState.value = RegisterPersonalState.Loading
         viewModelScope.launch {
-            val res = useCase.register(registerPersonalUser)
-            when(res){
-                true -> println("Sucess")
-                false -> println("error")
+            when(val stateResult = useCase.register(registerPersonalUser)){
+                is RegisterUseCaseState.Success -> successRegister()
+                is RegisterUseCaseState.Error -> errorRegister(stateResult)
             }
         }
+    }
+
+    private fun errorRegister(stateResult: RegisterUseCaseState.Error) {
+        _uiState.value = RegisterPersonalState.Error(stateResult.message)
+    }
+
+    private fun successRegister() {
+        _uiState.value = RegisterPersonalState.Success
     }
 
     fun onNameChanged(name: String) {

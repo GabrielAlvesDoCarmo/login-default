@@ -38,6 +38,13 @@ android {
         viewBinding = true
         buildConfig = true
     }
+
+    packaging.jniLibs.excludes.apply {
+        add("META-INF/LICENSE.md")
+        add("META-INF/LICENSE")
+        add("META-INF/AL2.0")
+        add("META-INF/LGPL2.1")
+    }
 }
 
 afterEvaluate {
@@ -80,6 +87,11 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     debugImplementation(libs.androidx.fragment.testing)
     implementation("org.mockito.kotlin:mockito-kotlin:5.4.0")
+    implementation("io.mockk:mockk:1.13.13")
+    implementation("io.mockk:mockk-android:1.13.13")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
+    androidTestImplementation("androidx.test:runner:1.6.2")
+    androidTestImplementation("androidx.test:rules:1.6.1")
 
 }
 

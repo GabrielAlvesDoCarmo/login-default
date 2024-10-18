@@ -1,11 +1,10 @@
 package br.com.gds.login.utils.commons
 
-import android.net.Uri
 import br.com.gds.core.login_module.model.login.LoginResponse
 import br.com.gds.core.login_module.model.register.RegisterRequest
 import br.com.gds.core.login_module.model.register.RegisterResponse
-import br.com.gds.login.repository.auth.model.UserAuthInfo
 import br.com.gds.login.feature.register.personal.model.RegisterPersonalUser
+import br.com.gds.login.repository.auth.model.UserAuthInfo
 import com.google.firebase.auth.AuthResult
 
 fun RegisterPersonalUser.toRegisterRequest() = RegisterRequest(
