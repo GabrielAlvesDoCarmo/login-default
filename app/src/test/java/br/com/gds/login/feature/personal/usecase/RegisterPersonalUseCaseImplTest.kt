@@ -15,7 +15,6 @@ class RegisterPersonalUseCaseImplTest {
     @Before
     fun setUp() {
         registerPersonalUser = RegisterPersonalUser(
-            immage = "",
             name = "",
             email = "",
             password = "",
@@ -145,9 +144,5 @@ class RegisterPersonalUseCaseImplTest {
     fun `is confirm password less than 8 characters invalid`() {
         val result = useCase.validateConfirmPassword("AbTp9!f", "ZbTp9!f")
         assertTrue(result is EditTextState.Invalid)
-    }
-
-    @Test
-    fun validateImage() {
     }
 }

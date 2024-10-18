@@ -11,10 +11,12 @@ import androidx.lifecycle.lifecycleScope
 import br.com.gds.login.LoginModuleSession
 import br.com.gds.login.databinding.FragmentRegisterPersonalBinding
 import br.com.gds.login.feature.register.personal.model.RegisterPersonalUser
+import br.com.gds.login.feature.register.personal.viewmodel.RegisterPersonalState
 import br.com.gds.login.feature.register.personal.viewmodel.RegisterPersonalViewModel
 import br.com.gds.login.feature.register.personal.viewmodel.isFormValid
 import br.com.gds.login.utils.extensions.appendMessageToFile
 import br.com.gds.login.utils.extensions.edittext.EditTextState
+import br.com.gds.login.utils.extensions.toastMessage
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -37,8 +39,27 @@ class RegisterPersonalFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupViews()
-        filedObserve()
+        fieldObserver()
+        uiStateObserver()
         appendMessageToFile(this.requireContext(), "TELA DE REGISTRO DISPONIVEL")
+    }
+
+    private fun uiStateObserver() {
+        viewModel.uiState.observe(viewLifecycleOwner){state->
+            when(state){
+                is RegisterPersonalState.Error -> {
+                    binding.progressBar.isVisible = false
+                    toastMessage(state.message)
+                }
+                is RegisterPersonalState.Loading -> {
+                    binding.progressBar.isVisible = true
+                }
+                is RegisterPersonalState.Success -> {
+                    binding.progressBar.isVisible = false
+                    toastMessage("Cadastrado com sucesso")
+                }
+            }
+        }
     }
 
     override fun onDestroyView() {
@@ -85,12 +106,10 @@ class RegisterPersonalFragment : Fragment() {
         }
     }
 
-    private fun filedObserve() {
+    private fun fieldObserver() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.formState.collect { state ->
                 binding.apply {
-//                    binding.registerNicknameLayout.setStartIconTintMode(PorterDuff.Mode.CLEAR)
-
                     registerNameLayout.error = if (state.nameState is EditTextState.Invalid)
                         state.nameState.errorMessage else null
 
@@ -110,8 +129,6 @@ class RegisterPersonalFragment : Fragment() {
             }
         }
     }
-
-
 
     private fun getUserRegister() = RegisterPersonalUser(
         name = binding.registerNameEdit.text.toString(),

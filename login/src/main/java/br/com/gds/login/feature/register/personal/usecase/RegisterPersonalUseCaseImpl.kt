@@ -1,47 +1,52 @@
 package br.com.gds.login.feature.register.personal.usecase
 
-import br.com.gds.core.login_module.model.register.RegisterResponse
-import br.com.gds.login.repository.auth.state.AuthRepositoryState
-import br.com.gds.login.feature.register.personal.repository_firebase.RegisterPersonalRepository
 import br.com.gds.login.feature.register.personal.model.RegisterPersonalUser
+import br.com.gds.login.feature.register.personal.repository_firebase.RegisterPersonalRepository
 import br.com.gds.login.feature.register.personal.repository_firebase.RegisterPersonalState
+import br.com.gds.login.utils.commons.LoginModuleConstants.UseCases.Register.ERROR_MESSAGE_CONFIRM_PASSWORD
+import br.com.gds.login.utils.commons.LoginModuleConstants.UseCases.Register.ERROR_MESSAGE_EMAIL
+import br.com.gds.login.utils.commons.LoginModuleConstants.UseCases.Register.ERROR_MESSAGE_NAME
+import br.com.gds.login.utils.commons.LoginModuleConstants.UseCases.Register.ERROR_MESSAGE_PASSWORD
+import br.com.gds.login.utils.commons.LoginModuleConstants.UseCases.Register.REGEX_EMAIL
+import br.com.gds.login.utils.commons.LoginModuleConstants.UseCases.Register.REGEX_NAME
+import br.com.gds.login.utils.commons.LoginModuleConstants.UseCases.Register.REGEX_PASSWORD
 import br.com.gds.login.utils.commons.toRegisterRequest
 import br.com.gds.login.utils.extensions.edittext.EditTextState
 
 class RegisterPersonalUseCaseImpl(
     private val repository: RegisterPersonalRepository
 ) : RegisterPersonalUseCase {
-    override suspend fun register(registerPersonalUser: RegisterPersonalUser): Boolean {
+    override suspend fun register(registerPersonalUser: RegisterPersonalUser): RegisterUseCaseState {
         val requestState = repository.register(registerRequest = registerPersonalUser.toRegisterRequest())
         return when(requestState){
-            is RegisterPersonalState.Error -> TODO()
-            is RegisterPersonalState.Success -> {
-                true
-            }
+            is RegisterPersonalState.Error -> RegisterUseCaseState.Error(
+                message = requestState.message
+            )
+            is RegisterPersonalState.Success -> RegisterUseCaseState.Success
         }
     }
 
     override fun validateName(name: String): EditTextState {
-        Regex("^[a-zA-Z]+$").matches(name).apply {
+        Regex(REGEX_NAME).matches(name).apply {
             return if (!this) EditTextState.Invalid(
-                errorMessage = "Nome inválido. Use apenas letras."
+                errorMessage = ERROR_MESSAGE_NAME
             )
             else EditTextState.Valid
         }
     }
 
     override fun validateEmail(email: String): EditTextState {
-        Regex("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$").apply {
+        Regex(REGEX_EMAIL).apply {
             return if (!matches(email)) return EditTextState.Invalid(
-                errorMessage = "Email inválido."
+                errorMessage = ERROR_MESSAGE_EMAIL
             ) else EditTextState.Valid
         }
     }
 
     override fun validatePassword(password: String): EditTextState {
-        Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!])(?=\\S+$).{8,20}$").apply {
+        Regex(REGEX_PASSWORD).apply {
             return if (!matches(password)) return EditTextState.Invalid(
-                errorMessage = "Senha inválida. A senha deve ter pelo menos 8 caracteres, uma letra maiúscula, uma letra minúscula, um número e um caractere especial."
+                errorMessage = ERROR_MESSAGE_PASSWORD
             ) else EditTextState.Valid
         }
     }
@@ -52,11 +57,7 @@ class RegisterPersonalUseCaseImpl(
             || validatePassword(confirmPassword) is EditTextState.Invalid
             || password != confirmPassword
         ) EditTextState.Invalid(
-            errorMessage = "As senhas não coincidem."
+            errorMessage = ERROR_MESSAGE_CONFIRM_PASSWORD
         ) else EditTextState.Valid
-    }
-
-    override fun validateImage(email: String): EditTextState {
-        TODO("Not yet implemented")
     }
 }
