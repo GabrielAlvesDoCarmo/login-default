@@ -75,6 +75,9 @@ class RegisterPersonalFragment : Fragment() {
 
     private fun setupViews() {
         binding.apply {
+            fragmentUI?.titleColor?.let { registerTextTitle.setTextColor(it) }
+            fragmentUI?.backgroundColor?.let { containerRegisterPersonScroolRoot.setBackgroundColor(it) }
+
             registerNameEdit.doOnTextChanged { text, _, _, _ ->
                 viewModel.onNameChanged(
                     name = text.toString()

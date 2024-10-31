@@ -1,5 +1,6 @@
 package br.com.gds.login.feature.login.view
 
+import android.annotation.SuppressLint
 import androidx.fragment.app.viewModels
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -43,9 +44,14 @@ class LoginFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("ResourceAsColor")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         router = LoginModuleRouter(findNavController())
+        fragmentUI?.let { construct->
+            binding.loginContainerScroll.setBackgroundColor(construct.backgroundColor)
+            binding.loginTextTitle.setTextColor(construct.titleColor)
+        }
         setupListeners()
         fieldObserve()
         viewModelObserve()
@@ -95,24 +101,6 @@ class LoginFragment : Fragment() {
         }
         facebookProvider.setOnClickListener {
             toastMessage("Clique facebook")
-        }
-        gameCenterProvider.setOnClickListener {
-            toastMessage("Clique game center")
-        }
-        githubProvider.setOnClickListener {
-            toastMessage("Clique github")
-        }
-        microsoftProvider.setOnClickListener {
-            toastMessage("Clique microsoft")
-        }
-        playGamesProvider.setOnClickListener {
-            toastMessage("Clique play games")
-        }
-        twitterProvider.setOnClickListener {
-            toastMessage("Clique twitter")
-        }
-        yahooProvider.setOnClickListener {
-            toastMessage("Clique yahoo")
         }
         phoneProvider.setOnClickListener {
             toastMessage("Clique phone")
