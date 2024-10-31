@@ -55,7 +55,6 @@ private val viewModels = module {
     viewModel {
         RegisterPersonalViewModel(
             useCase = get()
-
         )
     }
 }

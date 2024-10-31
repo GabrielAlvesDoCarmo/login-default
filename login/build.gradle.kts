@@ -39,11 +39,15 @@ android {
         buildConfig = true
     }
 
-    packaging.jniLibs.excludes.apply {
-        add("META-INF/LICENSE.md")
-        add("META-INF/LICENSE")
-        add("META-INF/AL2.0")
-        add("META-INF/LGPL2.1")
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "META-INF/AL2.0"
+            excludes += "META-INF/LGPL2.1"
+            excludes += "META-INF/LICENSE.md"
+            excludes += "META-INF/LICENSE-notice.md"
+            excludes += "META-INF/NOTICE"
+        }
     }
 }
 
@@ -80,6 +84,7 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.koin.android)
     implementation(libs.material)
+    implementation(libs.androidx.junit.ktx)
 
     testImplementation(libs.junit)
     testImplementation(libs.koin.test.junit4)
@@ -92,6 +97,14 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
     androidTestImplementation("androidx.test:runner:1.6.2")
     androidTestImplementation("androidx.test:rules:1.6.1")
+
+    // Koin Test
+    androidTestImplementation("io.insert-koin:koin-test:4.0.0") // ou a versão mais recente
+    androidTestImplementation("io.insert-koin:koin-test-junit4:4.0.0") // para usar com JUnit4
+
+    androidTestImplementation( "androidx.arch.core:core-testing:2.2.0")
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0")
+
 
 }
 

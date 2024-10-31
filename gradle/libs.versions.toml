@@ -26,6 +26,7 @@ firebaseFirestore = "25.1.0"
 firebaseStorage = "21.0.1"
 firebaseCommonKtx = "21.0.0"
 navigateArgsVersion = "2.8.2"
+junitKtx = "1.2.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -52,6 +53,7 @@ firebase-database = { group = "com.google.firebase", name = "firebase-database",
 firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore", version.ref = "firebaseFirestore" }
 firebase-storage = { group = "com.google.firebase", name = "firebase-storage", version.ref = "firebaseStorage" }
 firebase-common-ktx = { group = "com.google.firebase", name = "firebase-common-ktx", version.ref = "firebaseCommonKtx" }
+androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
 
 
 

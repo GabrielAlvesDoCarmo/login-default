@@ -9,26 +9,25 @@ import br.com.gds.login.feature.register.personal.usecase.RegisterPersonalUseCas
 import br.com.gds.login.feature.register.personal.usecase.RegisterUseCaseState
 import br.com.gds.login.utils.commons.FormState
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-class RegisterPersonalViewModel (
+class RegisterPersonalViewModel(
     private val useCase: RegisterPersonalUseCase
 ) : ViewModel() {
+    private val _formState: MutableLiveData<FormState> = MutableLiveData()
+    val formState: LiveData<FormState> = _formState
 
-
-    private val _formState = MutableStateFlow(FormState())
-    val formState: StateFlow<FormState> = _formState.asStateFlow()
-
-
-    private var _uiState : MutableLiveData<RegisterPersonalState> = MutableLiveData()
+    private var _uiState: MutableLiveData<RegisterPersonalState> = MutableLiveData()
     val uiState: LiveData<RegisterPersonalState> = _uiState
 
     fun register(registerPersonalUser: RegisterPersonalUser) {
         _uiState.value = RegisterPersonalState.Loading
         viewModelScope.launch {
-            when(val stateResult = useCase.register(registerPersonalUser)){
+            when (val stateResult = useCase.register(registerPersonalUser)) {
                 is RegisterUseCaseState.Success -> successRegister()
                 is RegisterUseCaseState.Error -> errorRegister(stateResult)
             }
@@ -44,25 +43,25 @@ class RegisterPersonalViewModel (
     }
 
     fun onNameChanged(name: String) {
-        _formState.value = _formState.value.copy(
+        _formState.value = _formState.value?.copy(
             nameState = useCase.validateName(name)
         )
     }
 
     fun onEmailChanged(email: String) {
-        _formState.value = _formState.value.copy(
+        _formState.value = _formState.value?.copy(
             emailState = useCase.validateEmail(email)
         )
     }
 
     fun onPasswordChanged(password: String) {
-        _formState.value = _formState.value.copy(
+        _formState.value = _formState.value?.copy(
             passwordState = useCase.validatePassword(password)
         )
     }
 
     fun onConfirmPasswordChanged(password: String, confirmPassword: String) {
-        _formState.value = _formState.value.copy(
+        _formState.value = _formState.value?.copy(
             confirmPasswordState = useCase.validateConfirmPassword(
                 password = password,
                 confirmPassword = confirmPassword

@@ -20,4 +20,5 @@
         <item name="cursorColor">@color/edit_text_incorrect</item>
     </style>
 
+    <style name="TestTheme" parent="Theme.AppCompat" />
 </resources>

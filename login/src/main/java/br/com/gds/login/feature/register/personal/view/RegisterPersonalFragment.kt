@@ -4,10 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.VisibleForTesting
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import br.com.gds.login.LoginModuleSession
 import br.com.gds.login.databinding.FragmentRegisterPersonalBinding
 import br.com.gds.login.feature.register.personal.model.RegisterPersonalUser
@@ -46,15 +49,17 @@ class RegisterPersonalFragment : Fragment() {
     }
 
     private fun uiStateObserver() {
-        viewModel.uiState.observe(viewLifecycleOwner){state->
-            when(state){
+        viewModel.uiState.observe(viewLifecycleOwner) { state ->
+            when (state) {
                 is RegisterPersonalState.Error -> {
                     binding.progressBar.isVisible = false
                     toastMessage(state.message)
                 }
+
                 is RegisterPersonalState.Loading -> {
                     binding.progressBar.isVisible = true
                 }
+
                 is RegisterPersonalState.Success -> {
                     binding.progressBar.isVisible = false
                     toastMessage("Cadastrado com sucesso")
@@ -108,25 +113,47 @@ class RegisterPersonalFragment : Fragment() {
     }
 
     private fun fieldObserver() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.formState.collect { state ->
-                binding.apply {
-                    registerNameLayout.error = if (state.nameState is EditTextState.Invalid)
-                        state.nameState.errorMessage else null
+//        viewLifecycleOwner.lifecycleScope.launch {
+//            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+//                viewModel.formState.collect { state ->
+//                    binding.apply {
+//                        registerNameLayout.error = if (state.nameState is EditTextState.Invalid)
+//                            state.nameState.errorMessage else null
+//
+//                        loginEmailLayout.error = if (state.emailState is EditTextState.Invalid)
+//                            state.emailState.errorMessage else null
+//
+//                        registerPasswordLayout.error = if (state.passwordState is EditTextState.Invalid)
+//                            state.passwordState.errorMessage else null
+//
+//                        registerConfirmPasswordLayout.error =
+//                            if (state.confirmPasswordState is EditTextState.Invalid)
+//                                state.confirmPasswordState.errorMessage else null
+//
+//                        buttonRegister.isEnabled = state.isFormValid()
+//                        buttonAddress.isEnabled = state.isFormValid()
+//                    }
+//                }
+//            }
+//        }
 
-                    loginEmailLayout.error = if (state.emailState is EditTextState.Invalid)
-                        state.emailState.errorMessage else null
+        viewModel.formState.observe(viewLifecycleOwner) {state ->
+            binding.apply {
+                registerNameLayout.error = if (state.nameState is EditTextState.Invalid)
+                    state.nameState.errorMessage else null
 
-                    registerPasswordLayout.error = if (state.passwordState is EditTextState.Invalid)
-                        state.passwordState.errorMessage else null
+                loginEmailLayout.error = if (state.emailState is EditTextState.Invalid)
+                    state.emailState.errorMessage else null
 
-                    registerConfirmPasswordLayout.error =
-                        if (state.confirmPasswordState is EditTextState.Invalid)
-                            state.confirmPasswordState.errorMessage else null
+                registerPasswordLayout.error = if (state.passwordState is EditTextState.Invalid)
+                    state.passwordState.errorMessage else null
 
-                    buttonRegister.isEnabled = state.isFormValid()
-                    buttonAddress.isEnabled = state.isFormValid()
-                }
+                registerConfirmPasswordLayout.error =
+                    if (state.confirmPasswordState is EditTextState.Invalid)
+                        state.confirmPasswordState.errorMessage else null
+
+                buttonRegister.isEnabled = state.isFormValid()
+                buttonAddress.isEnabled = state.isFormValid()
             }
         }
     }
