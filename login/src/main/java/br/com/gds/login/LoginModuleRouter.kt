@@ -6,13 +6,6 @@ import br.com.gds.login.feature.register.address.view.AddressRegisterFragmentDir
 import br.com.gds.login.feature.register.personal.model.RegisterPersonalUI
 import br.com.gds.login.feature.register.personal.view.RegisterPersonalFragmentDirections
 
-//object LoginModuleRouter {
-//    fun goToLogin() = LoginFragment.newInstance()
-//    fun goToRegister() = RegisterFragment.newInstance()
-//    fun goToResetPassword() = ResetPasswordFragment.newInstance()
-//
-//}
-
 class LoginModuleRouter(
     private val navController: NavController
 ) {

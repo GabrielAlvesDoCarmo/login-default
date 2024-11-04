@@ -1,36 +1,42 @@
 package br.com.gds.login
 
 import android.content.Context
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import androidx.navigation.NavDirections
-import br.com.gds.login.feature.register.address.view.AddressRegisterFragmentDirections
-import br.com.gds.login.feature.register.personal.view.RegisterPersonalFragment
+import androidx.navigation.Navigation
 
 object LoginModuleInitializer {
     data class Builder (
         val context: Context,
-        val navController: NavController,
         val loginModuleDependency: LoginModuleDependency
     ){
-        private val router = LoginModuleRouter(navController)
+//        private val router = LoginModuleRouter(navController)
 
         fun buildLogin() {
             LoginModuleSession.loginModuleDependency = loginModuleDependency
+            val navController = Navigation.findNavController(context as AppCompatActivity,R.id.login_graph)
+            val router = LoginModuleRouter(navController)
             return router.navigateGlobalToLogin()
         }
 
         fun buildRegister() {
             LoginModuleSession.loginModuleDependency = loginModuleDependency
+            val navController = Navigation.findNavController(context as AppCompatActivity,R.id.login_graph)
+            val router = LoginModuleRouter(navController)
             return router.navigateGlobalToRegister()
         }
 
         fun buildAddressRegister() {
             LoginModuleSession.loginModuleDependency = loginModuleDependency
+            val navController = Navigation.findNavController(context as AppCompatActivity,R.id.login_graph)
+            val router = LoginModuleRouter(navController)
             return router.navigateGlobalAddressRegister()
         }
 
         fun buildAutomovelRegister() {
             LoginModuleSession.loginModuleDependency = loginModuleDependency
+            val navController = Navigation.findNavController(context as AppCompatActivity,R.id.login_graph)
+            val router = LoginModuleRouter(navController)
             return router.navigateGlobalAutomovelRegister()
         }
 
