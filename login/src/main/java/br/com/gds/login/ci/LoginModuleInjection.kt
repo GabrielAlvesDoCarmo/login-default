@@ -58,4 +58,4 @@ private val viewModels = module {
         )
     }
 }
-val appModules = listOf(viewModels, useCases, authRepository, firebaseInstance  )
+val loginModulesInjection = listOf(viewModels, useCases, authRepository, firebaseInstance  )
