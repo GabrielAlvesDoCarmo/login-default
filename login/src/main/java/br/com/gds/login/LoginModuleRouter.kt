@@ -1,6 +1,9 @@
 package br.com.gds.login
 
+import android.content.Context
 import androidx.navigation.NavController
+import br.com.gds.login.feature.container.action.NavigationScreenAction
+import br.com.gds.login.feature.container.view.MainLoginContainerActivity
 import br.com.gds.login.feature.login.view.LoginFragmentDirections
 import br.com.gds.login.feature.register.address.view.AddressRegisterFragmentDirections
 import br.com.gds.login.feature.register.personal.model.RegisterPersonalUI
@@ -46,21 +49,30 @@ class LoginModuleRouter(
         )
     }
 
-    fun navigateRegisterToAddressRegister(){
+    fun navigateRegisterToAddressRegister() {
         navController.navigate(
             directions = RegisterPersonalFragmentDirections.actionRegisterToAddressRegister()
         )
     }
 
-    fun navigateRegisterToAutomovelRegister(){
+    fun navigateRegisterToAutomovelRegister() {
         navController.navigate(
             directions = RegisterPersonalFragmentDirections.actionRegisterToAutomovelRegister()
         )
     }
 
-    fun navigateAddressRegisterToAutomovelRegister(){
+    fun navigateAddressRegisterToAutomovelRegister() {
         navController.navigate(
             directions = AddressRegisterFragmentDirections.actionAddressRegisterToAutomovelRegister()
         )
+    }
+
+    fun initModuleLogin(
+        context: Context,
+        action: NavigationScreenAction,
+
+        ) {
+        MainLoginContainerActivity.newInstance(context, action)
+            .also(context::startActivity)
     }
 }

@@ -60,7 +60,7 @@ class RegisterPersonalFragment : Fragment() {
                     LoginModuleSession
                         .loginModuleDependency
                         ?.loginModuleCallbackProvider
-                        ?.gotToLoginSuccess()
+                        ?.gotToLoginSuccess(requireContext())
                 }
             }
         }

@@ -21,14 +21,6 @@ import com.google.firebase.FirebaseApp
 class MainLoginContainerActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainLoginContainerBinding
 
-    private val layoutSetup by lazy {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.extras?.getParcelable(LAYOUT_SETUP_KEY, LayoutSetup::class.java)
-        } else {
-            intent.getParcelableExtra(LAYOUT_SETUP_KEY)
-        } ?: LayoutSetup()
-    }
-
     private val navigationScreenAction by lazy {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.extras?.getParcelable(NAVIGATION_EVENT_KEY, NavigationScreenAction::class.java)
@@ -41,11 +33,14 @@ class MainLoginContainerActivity : AppCompatActivity() {
         (supportFragmentManager.findFragmentById(R.id.nav_host_login_module) as NavHostFragment).navController
     }
 
+    private val layoutSetup by lazy {
+        LoginModuleSession.loginModuleDependency?.layoutSetup ?: LayoutSetup()
+    }
+
     private val router by lazy { LoginModuleRouter(navController) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        LoginModuleSession.loginModuleDependency?.layoutSetup = layoutSetup
         setupActivity()
         FirebaseApp.initializeApp(applicationContext)
     }
@@ -113,15 +108,12 @@ class MainLoginContainerActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val LAYOUT_SETUP_KEY = "layout_setup_key"
         private const val NAVIGATION_EVENT_KEY = "navigation_event_key"
 
         fun newInstance(
             context: Context,
-            layoutSetup: LayoutSetup,
             navigationScreenAction: NavigationScreenAction
         ) = Intent(context, MainLoginContainerActivity::class.java).apply {
-            putExtra(LAYOUT_SETUP_KEY, layoutSetup)
             putExtra(NAVIGATION_EVENT_KEY, navigationScreenAction)
         }
     }
