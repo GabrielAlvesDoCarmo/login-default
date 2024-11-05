@@ -5,4 +5,6 @@
     <color name="edit_text_correct">#1C7632</color>
     <color name="edit_text_incorrect">#7D0404</color>
     <color name="edit_text_default">#000000</color>
+    <color name="test_1">#001CA9</color>
+    <color name="test_2">#008023</color>
 </resources>

@@ -4,13 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.VisibleForTesting
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import br.com.gds.login.LoginModuleSession
 import br.com.gds.login.databinding.FragmentRegisterPersonalBinding
 import br.com.gds.login.feature.register.personal.model.RegisterPersonalUser
@@ -20,7 +16,6 @@ import br.com.gds.login.utils.commons.isFormValid
 import br.com.gds.login.utils.extensions.appendMessageToFile
 import br.com.gds.login.utils.extensions.edittext.EditTextState
 import br.com.gds.login.utils.extensions.toastMessage
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RegisterPersonalFragment : Fragment() {
@@ -75,9 +70,15 @@ class RegisterPersonalFragment : Fragment() {
 
     private fun setupViews() {
         binding.apply {
-            fragmentUI?.titleColor?.let { registerTextTitle.setTextColor(it) }
-            fragmentUI?.backgroundColor?.let { containerRegisterPersonScroolRoot.setBackgroundColor(it) }
+            fragmentUI?.apply {
+                containerRegisterPersonConstraintRoot.setBackgroundColor(
+                    requireContext().getColor(backgroundColor)
+                )
+                registerTextTitle.setTextColor(
+                    requireContext().getColor(titleColor)
+                )
 
+            }
             registerNameEdit.doOnTextChanged { text, _, _, _ ->
                 viewModel.onNameChanged(
                     name = text.toString()
@@ -105,8 +106,9 @@ class RegisterPersonalFragment : Fragment() {
                     registerPersonalUser = getUserRegister()
                 )
             }
-            ckUseNickname.isVisible = fragmentUI?.enableNickname ?: true
-            buttonAddress.isVisible = fragmentUI?.enableButtonAddress ?: true
+            ckUseNickname.isVisible = fragmentUI?.enableNickname ?: false
+            buttonAddress.isVisible = fragmentUI?.enableButtonAddress ?: false
+
 
             ckUseNickname.setOnClickListener {
                 registerNicknameLayout.isVisible = ckUseNickname.isChecked
@@ -116,31 +118,7 @@ class RegisterPersonalFragment : Fragment() {
     }
 
     private fun fieldObserver() {
-//        viewLifecycleOwner.lifecycleScope.launch {
-//            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
-//                viewModel.formState.collect { state ->
-//                    binding.apply {
-//                        registerNameLayout.error = if (state.nameState is EditTextState.Invalid)
-//                            state.nameState.errorMessage else null
-//
-//                        loginEmailLayout.error = if (state.emailState is EditTextState.Invalid)
-//                            state.emailState.errorMessage else null
-//
-//                        registerPasswordLayout.error = if (state.passwordState is EditTextState.Invalid)
-//                            state.passwordState.errorMessage else null
-//
-//                        registerConfirmPasswordLayout.error =
-//                            if (state.confirmPasswordState is EditTextState.Invalid)
-//                                state.confirmPasswordState.errorMessage else null
-//
-//                        buttonRegister.isEnabled = state.isFormValid()
-//                        buttonAddress.isEnabled = state.isFormValid()
-//                    }
-//                }
-//            }
-//        }
-
-        viewModel.formState.observe(viewLifecycleOwner) {state ->
+        viewModel.formState.observe(viewLifecycleOwner) { state ->
             binding.apply {
                 registerNameLayout.error = if (state.nameState is EditTextState.Invalid)
                     state.nameState.errorMessage else null

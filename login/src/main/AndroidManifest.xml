@@ -6,7 +6,7 @@
 
     <application>
         <activity
-            android:name=".feature.MainLoginContainerActivity"
+            android:name=".feature.container.view.MainLoginContainerActivity"
             android:exported="false" />
     </application>
 

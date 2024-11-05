@@ -1,12 +1,12 @@
 package br.com.gds.login.feature.login.view
 
 import android.annotation.SuppressLint
-import androidx.fragment.app.viewModels
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import br.com.gds.login.LoginModuleRouter
@@ -14,13 +14,12 @@ import br.com.gds.login.LoginModuleSession
 import br.com.gds.login.R
 import br.com.gds.login.databinding.FragmentLoginBinding
 import br.com.gds.login.feature.login.model.UserLogin
-import br.com.gds.login.utils.extensions.edittext.EditTextState
 import br.com.gds.login.feature.login.viewmodel.LoginViewModel
-import br.com.gds.login.feature.register.personal.model.RegisterPersonalUI
+import br.com.gds.login.utils.extensions.edittext.EditTextState
 import br.com.gds.login.utils.extensions.edittext.applyStyle
-import br.com.gds.login.utils.extensions.toastMessage
 import br.com.gds.login.utils.extensions.edittext.validateEmailField
 import br.com.gds.login.utils.extensions.edittext.validatePasswordField
+import br.com.gds.login.utils.extensions.toastMessage
 import kotlinx.coroutines.launch
 
 class LoginFragment : Fragment() {
@@ -48,9 +47,14 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         router = LoginModuleRouter(findNavController())
-        fragmentUI?.let { construct->
-            binding.loginContainerScroll.setBackgroundColor(construct.backgroundColor)
-            binding.loginTextTitle.setTextColor(construct.titleColor)
+
+        fragmentUI?.let {
+            binding.loginContainerScroll.setBackgroundColor(
+                requireContext().getColor(it.backgroundColor)
+            )
+            binding.loginTextTitle.setTextColor(
+                requireContext().getColor(it.titleColor)
+            )
         }
         setupListeners()
         fieldObserve()
