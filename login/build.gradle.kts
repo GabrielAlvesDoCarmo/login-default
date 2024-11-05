@@ -58,7 +58,7 @@ afterEvaluate {
                 from(components["release"])
                 groupId = "com.github.GabrielAlvesDoCarmo"
                 artifactId = "login-default"
-                version = "0.0.7"
+                version = "0.0.8"
             }
         }
     }
@@ -85,6 +85,8 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.material)
     implementation(libs.androidx.junit.ktx)
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.constraintlayout)
 
     testImplementation(libs.junit)
     testImplementation(libs.koin.test.junit4)
