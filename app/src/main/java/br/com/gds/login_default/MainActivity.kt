@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import br.com.gds.login.LoginModuleDependency
+import br.com.gds.login.R
 import br.com.gds.login.feature.container.view.MainLoginContainerActivity
 import br.com.gds.login.feature.container.action.NavigationScreenAction
 import br.com.gds.login.feature.container.model.LayoutDefault
@@ -31,12 +32,12 @@ class MainActivity : AppCompatActivity() {
                context = this,
                loginModuleDependency = LoginModuleDependency(
                    loginFragment = LoginUI(
-                       backgroundColor = br.com.gds.login.R.color.test_2,
-                       titleColor = br.com.gds.login.R.color.test_1
+                       backgroundColor = R.color.test_2,
+                       titleColor = R.color.test_1
                    ),
                    layoutDefault = LayoutDefault(
-                       statusBarColor = br.com.gds.login.R.color.edit_text_incorrect,
-                       navigationBarColor = br.com.gds.login.R.color.test_1,
+                       statusBarColor = R.color.edit_text_incorrect,
+                       navigationBarColor = R.color.test_1,
                    )
                ),
                navigationScreenAction = NavigationScreenAction.ToLogin

@@ -12,13 +12,14 @@ import br.com.gds.login.databinding.FragmentRegisterPersonalBinding
 import br.com.gds.login.feature.register.personal.model.RegisterPersonalUser
 import br.com.gds.login.feature.register.personal.viewmodel.RegisterPersonalState
 import br.com.gds.login.feature.register.personal.viewmodel.RegisterPersonalViewModel
+import br.com.gds.login.provider.LoginModuleProvider
 import br.com.gds.login.utils.commons.isFormValid
 import br.com.gds.login.utils.extensions.appendMessageToFile
 import br.com.gds.login.utils.extensions.edittext.EditTextState
 import br.com.gds.login.utils.extensions.toastMessage
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class RegisterPersonalFragment : Fragment() {
+class RegisterPersonalFragment : Fragment(), LoginModuleProvider.Register {
 
     private lateinit var binding: FragmentRegisterPersonalBinding
     private val viewModel: RegisterPersonalViewModel by viewModel()
@@ -55,10 +56,7 @@ class RegisterPersonalFragment : Fragment() {
                     binding.progressBar.isVisible = true
                 }
 
-                is RegisterPersonalState.Success -> {
-                    binding.progressBar.isVisible = false
-                    toastMessage("Cadastrado com sucesso")
-                }
+                is RegisterPersonalState.Success -> success()
             }
         }
     }
@@ -145,4 +143,9 @@ class RegisterPersonalFragment : Fragment() {
         password = binding.registerPasswordEdit.text.toString(),
         confirmPassword = binding.registerConfirmPasswordEdit.text.toString()
     )
+
+    override fun success() {
+        toastMessage("Cadastrado com sucesso")
+        binding.progressBar.isVisible = false
+    }
 }
