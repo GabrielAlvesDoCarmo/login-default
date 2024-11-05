@@ -1,7 +1,7 @@
 package br.com.gds.login
 
 import android.os.Parcelable
-import br.com.gds.login.feature.container.model.LoginLayoutDefault
+import br.com.gds.login.feature.container.model.LayoutDefault
 import br.com.gds.login.feature.login.model.LoginUI
 import br.com.gds.login.feature.register.address.model.AddressRegisterUI
 import br.com.gds.login.feature.register.automovel.model.AutomovelRegisterUI
@@ -11,7 +11,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class LoginModuleDependency(
-    val loginLayoutDefault: LoginLayoutDefault = LoginLayoutDefault(),
+    val layoutDefault: LayoutDefault = LayoutDefault(),
     val registerFragment: RegisterPersonalUI = RegisterPersonalUI(),
     val addressRegisterFragment: AddressRegisterUI = AddressRegisterUI(),
     val autoRegisterFragment: AutomovelRegisterUI = AutomovelRegisterUI(),

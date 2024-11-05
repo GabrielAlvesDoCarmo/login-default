@@ -5,9 +5,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.fragment.NavHostFragment
 import br.com.gds.login.LoginModuleDependency
 import br.com.gds.login.LoginModuleRouter
@@ -50,20 +53,66 @@ class MainLoginContainerActivity : AppCompatActivity() {
         FirebaseApp.initializeApp(applicationContext)
     }
 
-    @SuppressLint("ResourceType")
     private fun setupActivity() {
         binding = ActivityMainLoginContainerBinding.inflate(layoutInflater)
-        enableEdgeToEdge()
         setContentView(binding.root)
-        adjustPaddingView(binding.root)
-        window.statusBarColor = ContextCompat.getColor(this, loginModuleDependency.loginLayoutDefault.statusBarColor)
-        window.navigationBarColor = ContextCompat.getColor(this, loginModuleDependency.loginLayoutDefault.navigationBarColor)
+        configStatusAndNavBar()
+        navigationHandler()
+    }
 
-        when(navigationScreenAction){
+    private fun navigationHandler() {
+        when (navigationScreenAction) {
             is NavigationScreenAction.ToLogin -> router.navigateGlobalToLogin()
             is NavigationScreenAction.ToRegisterPerson -> router.navigateGlobalToRegister()
             is NavigationScreenAction.ToResetPassword -> router.navigateLoginToResetPassword()
         }
+    }
+
+    private fun configStatusAndNavBar() {
+        if (loginModuleDependency.layoutDefault.isStatusBarEnabled) showStatusBar() else hideStatusBar()
+        if (loginModuleDependency.layoutDefault.isNavigationBarEnabled) showNavigationBar() else hideNavigationBar()
+    }
+
+    private fun hideNavigationBarAndStatusBar() {
+        hideStatusBar()
+        hideNavigationBar()
+    }
+
+
+    private fun showNavigationBarAndStatusBar() {
+        showStatusBar()
+        showNavigationBar()
+    }
+
+    private fun hideStatusBar() {
+        WindowCompat.getInsetsController(window, window.decorView)
+            .hide(WindowInsetsCompat.Type.statusBars())
+    }
+
+    private fun hideNavigationBar() {
+        WindowCompat.getInsetsController(window, window.decorView)
+            .hide(WindowInsetsCompat.Type.navigationBars())
+    }
+
+    private fun showStatusBar() {
+        WindowCompat.getInsetsController(window, window.decorView)
+            .show(WindowInsetsCompat.Type.navigationBars())
+
+        window.statusBarColor = ContextCompat.getColor(
+            this@MainLoginContainerActivity,
+            loginModuleDependency.layoutDefault.statusBarColor
+        )
+    }
+
+    private fun showNavigationBar() {
+        WindowCompat.getInsetsController(window, window.decorView)
+            .show(WindowInsetsCompat.Type.navigationBars())
+
+        window.navigationBarColor = ContextCompat.getColor(
+            this@MainLoginContainerActivity,
+            loginModuleDependency.layoutDefault.navigationBarColor
+        )
+
     }
 
     companion object {
@@ -80,9 +129,6 @@ class MainLoginContainerActivity : AppCompatActivity() {
         }
     }
 }
-
-
-
 
 
 //        // Dentro do LoginModule
