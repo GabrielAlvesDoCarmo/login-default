@@ -24,6 +24,10 @@ class RegisterPersonalViewModel(
     private var _uiState: MutableLiveData<RegisterPersonalState> = MutableLiveData()
     val uiState: LiveData<RegisterPersonalState> = _uiState
 
+    init {
+        _formState.value = FormState()
+    }
+
     fun register(registerPersonalUser: RegisterPersonalUser) {
         _uiState.value = RegisterPersonalState.Loading
         viewModelScope.launch {
