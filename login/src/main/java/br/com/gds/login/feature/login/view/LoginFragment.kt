@@ -13,6 +13,7 @@ import br.com.gds.login.LoginModuleRouter
 import br.com.gds.login.LoginModuleSession
 import br.com.gds.login.R
 import br.com.gds.login.databinding.FragmentLoginBinding
+import br.com.gds.login.feature.login.model.LoginUI
 import br.com.gds.login.feature.login.model.UserLogin
 import br.com.gds.login.feature.login.viewmodel.LoginViewModel
 import br.com.gds.login.utils.extensions.edittext.EditTextState
@@ -32,7 +33,7 @@ class LoginFragment : Fragment() {
     private var password = false
 
     private val fragmentUI by lazy {
-        LoginModuleSession.loginModuleDependency?.loginFragment
+        LoginModuleSession.loginModuleDependency?.layoutSetup?.loginFragment ?: LoginUI()
     }
 
     override fun onCreateView(

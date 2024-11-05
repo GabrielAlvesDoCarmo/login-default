@@ -9,23 +9,23 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import br.com.gds.login.LoginModuleSession
 import br.com.gds.login.databinding.FragmentRegisterPersonalBinding
+import br.com.gds.login.feature.register.personal.model.RegisterPersonalUI
 import br.com.gds.login.feature.register.personal.model.RegisterPersonalUser
 import br.com.gds.login.feature.register.personal.viewmodel.RegisterPersonalState
 import br.com.gds.login.feature.register.personal.viewmodel.RegisterPersonalViewModel
-import br.com.gds.login.provider.LoginModuleProvider
 import br.com.gds.login.utils.commons.isFormValid
 import br.com.gds.login.utils.extensions.appendMessageToFile
 import br.com.gds.login.utils.extensions.edittext.EditTextState
 import br.com.gds.login.utils.extensions.toastMessage
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class RegisterPersonalFragment : Fragment(), LoginModuleProvider.Register {
+class RegisterPersonalFragment : Fragment() {
 
     private lateinit var binding: FragmentRegisterPersonalBinding
     private val viewModel: RegisterPersonalViewModel by viewModel()
 
     private val fragmentUI by lazy {
-        LoginModuleSession.loginModuleDependency?.registerFragment
+        LoginModuleSession.loginModuleDependency?.layoutSetup?.registerFragment ?: RegisterPersonalUI()
     }
 
     override fun onCreateView(
@@ -56,7 +56,12 @@ class RegisterPersonalFragment : Fragment(), LoginModuleProvider.Register {
                     binding.progressBar.isVisible = true
                 }
 
-                is RegisterPersonalState.Success -> success()
+                is RegisterPersonalState.Success ->{
+                    LoginModuleSession
+                        .loginModuleDependency
+                        ?.loginModuleCallbackProvider
+                        ?.gotToLoginSuccess()
+                }
             }
         }
     }
@@ -68,7 +73,7 @@ class RegisterPersonalFragment : Fragment(), LoginModuleProvider.Register {
 
     private fun setupViews() {
         binding.apply {
-            fragmentUI?.apply {
+            fragmentUI.apply {
                 containerRegisterPersonConstraintRoot.setBackgroundColor(
                     requireContext().getColor(backgroundColor)
                 )
@@ -104,8 +109,8 @@ class RegisterPersonalFragment : Fragment(), LoginModuleProvider.Register {
                     registerPersonalUser = getUserRegister()
                 )
             }
-            ckUseNickname.isVisible = fragmentUI?.enableNickname ?: false
-            buttonAddress.isVisible = fragmentUI?.enableButtonAddress ?: false
+            ckUseNickname.isVisible = fragmentUI.enableNickname
+            buttonAddress.isVisible = fragmentUI.enableButtonAddress
 
 
             ckUseNickname.setOnClickListener {
@@ -143,9 +148,4 @@ class RegisterPersonalFragment : Fragment(), LoginModuleProvider.Register {
         password = binding.registerPasswordEdit.text.toString(),
         confirmPassword = binding.registerConfirmPasswordEdit.text.toString()
     )
-
-    override fun success() {
-        toastMessage("Cadastrado com sucesso")
-        binding.progressBar.isVisible = false
-    }
 }

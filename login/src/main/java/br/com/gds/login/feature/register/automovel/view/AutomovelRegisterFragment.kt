@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import br.com.gds.login.LoginModuleSession
 import br.com.gds.login.R
+import br.com.gds.login.feature.register.automovel.model.AutomovelRegisterUI
 import br.com.gds.login.feature.register.automovel.viewmodel.AutomovelRegisterViewModel
 
 class AutomovelRegisterFragment : Fragment() {
@@ -18,7 +19,7 @@ class AutomovelRegisterFragment : Fragment() {
 
     private val viewModel: AutomovelRegisterViewModel by viewModels()
     private val fragmentUI by lazy {
-        LoginModuleSession.loginModuleDependency?.autoRegisterFragment
+        LoginModuleSession.loginModuleDependency?.layoutSetup?.autoRegisterFragment ?: AutomovelRegisterUI()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

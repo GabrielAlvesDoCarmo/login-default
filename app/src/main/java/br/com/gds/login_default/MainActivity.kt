@@ -1,17 +1,15 @@
 package br.com.gds.login_default
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
 import br.com.gds.login.LoginModuleDependency
 import br.com.gds.login.R
 import br.com.gds.login.feature.container.view.MainLoginContainerActivity
 import br.com.gds.login.feature.container.action.NavigationScreenAction
 import br.com.gds.login.feature.container.model.LayoutDefault
 import br.com.gds.login.feature.login.model.LoginUI
-import br.com.gds.login.utils.extensions.adjustPaddingView
+import br.com.gds.login.provider.LoginModuleCallbackProvider
+import br.com.gds.login.utils.commons.LayoutSetup
 import br.com.gds.login_default.databinding.ActivityMainBinding
 import com.google.firebase.FirebaseApp
 
@@ -28,20 +26,20 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         startActivity(
-           MainLoginContainerActivity.newInstance(
-               context = this,
-               loginModuleDependency = LoginModuleDependency(
-                   loginFragment = LoginUI(
-                       backgroundColor = R.color.test_2,
-                       titleColor = R.color.test_1
-                   ),
-                   layoutDefault = LayoutDefault(
-                       statusBarColor = R.color.edit_text_incorrect,
-                       navigationBarColor = R.color.test_1,
-                   )
-               ),
-               navigationScreenAction = NavigationScreenAction.ToLogin
-           )
+            MainLoginContainerActivity.newInstance(
+                context = this,
+                navigationScreenAction = NavigationScreenAction.ToLogin,
+                layoutSetup = LayoutSetup(
+                    loginFragment = LoginUI(
+                        backgroundColor = R.color.test_2,
+                        titleColor = R.color.test_1
+                    ),
+                    layoutDefault = LayoutDefault(
+                        statusBarColor = R.color.edit_text_incorrect,
+                        navigationBarColor = R.color.test_1,
+                    ),
+                )
+            )
         )
 
 

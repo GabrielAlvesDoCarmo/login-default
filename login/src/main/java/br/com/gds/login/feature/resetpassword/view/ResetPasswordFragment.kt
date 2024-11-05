@@ -8,17 +8,17 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import br.com.gds.login.LoginModuleSession
 import br.com.gds.login.R
+import br.com.gds.login.feature.resetpassword.model.ResetPasswordUI
 import br.com.gds.login.feature.resetpassword.viewmodel.ResetPasswordViewModel
 
 class ResetPasswordFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = ResetPasswordFragment()
-    }
-
     private val viewModel: ResetPasswordViewModel by viewModels()
     private val fragmentUI by lazy {
-      LoginModuleSession.loginModuleDependency?.resetPasswordFragment
+      LoginModuleSession
+          .loginModuleDependency
+          ?.layoutSetup
+          ?.resetPasswordFragment
+          ?: ResetPasswordUI()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

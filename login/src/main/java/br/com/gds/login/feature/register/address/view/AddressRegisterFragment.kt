@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import br.com.gds.login.LoginModuleSession
 import br.com.gds.login.R
+import br.com.gds.login.feature.register.address.model.AddressRegisterUI
 import br.com.gds.login.feature.register.address.viewmodel.AddressRegisterViewModel
 
 class AddressRegisterFragment : Fragment() {
@@ -18,7 +19,7 @@ class AddressRegisterFragment : Fragment() {
 
     private val viewModel: AddressRegisterViewModel by viewModels()
     private val fragmentUI by lazy {
-        LoginModuleSession.loginModuleDependency?.addressRegisterFragment
+        LoginModuleSession.loginModuleDependency?.layoutSetup?.addressRegisterFragment ?: AddressRegisterUI()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -15,17 +15,18 @@ import br.com.gds.login.LoginModuleSession
 import br.com.gds.login.R
 import br.com.gds.login.databinding.ActivityMainLoginContainerBinding
 import br.com.gds.login.feature.container.action.NavigationScreenAction
+import br.com.gds.login.utils.commons.LayoutSetup
 import com.google.firebase.FirebaseApp
 
 class MainLoginContainerActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainLoginContainerBinding
 
-    private val loginModuleDependency by lazy {
+    private val layoutSetup by lazy {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.extras?.getParcelable(DEPENDENCY_KEY, LoginModuleDependency::class.java)
+            intent.extras?.getParcelable(LAYOUT_SETUP_KEY, LayoutSetup::class.java)
         } else {
-            intent.getParcelableExtra(DEPENDENCY_KEY)
-        } ?: LoginModuleDependency()
+            intent.getParcelableExtra(LAYOUT_SETUP_KEY)
+        } ?: LayoutSetup()
     }
 
     private val navigationScreenAction by lazy {
@@ -44,7 +45,7 @@ class MainLoginContainerActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        LoginModuleSession.loginModuleDependency = loginModuleDependency
+        LoginModuleSession.loginModuleDependency?.layoutSetup = layoutSetup
         setupActivity()
         FirebaseApp.initializeApp(applicationContext)
     }
@@ -65,8 +66,8 @@ class MainLoginContainerActivity : AppCompatActivity() {
     }
 
     private fun configStatusAndNavBar() {
-        if (loginModuleDependency.layoutDefault.isStatusBarEnabled) showStatusBar() else hideStatusBar()
-        if (loginModuleDependency.layoutDefault.isNavigationBarEnabled) showNavigationBar() else hideNavigationBar()
+        if (layoutSetup.layoutDefault.isStatusBarEnabled) showStatusBar() else hideStatusBar()
+        if (layoutSetup.layoutDefault.isNavigationBarEnabled) showNavigationBar() else hideNavigationBar()
     }
 
     private fun hideNavigationBarAndStatusBar() {
@@ -96,7 +97,7 @@ class MainLoginContainerActivity : AppCompatActivity() {
 
         window.statusBarColor = ContextCompat.getColor(
             this@MainLoginContainerActivity,
-            loginModuleDependency.layoutDefault.statusBarColor
+            layoutSetup.layoutDefault.statusBarColor
         )
     }
 
@@ -106,21 +107,21 @@ class MainLoginContainerActivity : AppCompatActivity() {
 
         window.navigationBarColor = ContextCompat.getColor(
             this@MainLoginContainerActivity,
-            loginModuleDependency.layoutDefault.navigationBarColor
+            layoutSetup.layoutDefault.navigationBarColor
         )
 
     }
 
     companion object {
-        private const val DEPENDENCY_KEY = "dependency_key"
+        private const val LAYOUT_SETUP_KEY = "layout_setup_key"
         private const val NAVIGATION_EVENT_KEY = "navigation_event_key"
 
         fun newInstance(
             context: Context,
-            loginModuleDependency: LoginModuleDependency,
+            layoutSetup: LayoutSetup,
             navigationScreenAction: NavigationScreenAction
         ) = Intent(context, MainLoginContainerActivity::class.java).apply {
-            putExtra(DEPENDENCY_KEY, loginModuleDependency)
+            putExtra(LAYOUT_SETUP_KEY, layoutSetup)
             putExtra(NAVIGATION_EVENT_KEY, navigationScreenAction)
         }
     }
