@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import br.com.gds.login.LoginModuleRouter
 import br.com.gds.login.LoginModuleSession
 import br.com.gds.login.R
 import br.com.gds.login.databinding.FragmentLoginBinding
@@ -26,9 +25,11 @@ import kotlinx.coroutines.launch
 class LoginFragment : Fragment() {
 
     private val viewModel: LoginViewModel by viewModels()
+    private val navController by lazy {
+        findNavController()
+    }
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
-    private var router : LoginModuleRouter? = null
     private var email = false
     private var password = false
 
@@ -47,9 +48,8 @@ class LoginFragment : Fragment() {
     @SuppressLint("ResourceAsColor")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        router = LoginModuleRouter(findNavController())
 
-        fragmentUI?.let {
+        fragmentUI.let {
             binding.loginContainerScroll.setBackgroundColor(
                 requireContext().getColor(it.backgroundColor)
             )
@@ -90,11 +90,15 @@ class LoginFragment : Fragment() {
     )
 
     private fun resetPassword() {
-        router?.navigateLoginToResetPassword()
+      navController.navigate(
+          LoginFragmentDirections.actionLoginFragmentToResetPasswordFragment2()
+      )
     }
 
     private fun register() {
-        router?.navigateLoginToRegister()
+        navController.navigate(
+            LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
+        )
     }
 
     private fun providersListeners() = binding.apply {

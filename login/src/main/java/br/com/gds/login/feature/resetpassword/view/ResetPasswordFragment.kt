@@ -31,4 +31,10 @@ class ResetPasswordFragment : Fragment() {
     ): View {
         return inflater.inflate(R.layout.fragment_reset_password, container, false)
     }
+
+    companion object {
+        @JvmStatic
+        fun newInstance() = ResetPasswordFragment()
+    }
+
 }

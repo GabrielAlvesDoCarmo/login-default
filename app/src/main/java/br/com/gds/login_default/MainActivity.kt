@@ -3,19 +3,22 @@ package br.com.gds.login_default
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import br.com.gds.login.LoginModuleDependency
-import br.com.gds.login.R
-import br.com.gds.login.feature.container.view.MainLoginContainerActivity
+import br.com.gds.login.LoginModuleInitializer
 import br.com.gds.login.feature.container.action.NavigationScreenAction
-import br.com.gds.login.feature.container.model.LayoutDefault
-import br.com.gds.login.feature.login.model.LoginUI
-import br.com.gds.login.provider.LoginModuleCallbackProvider
-import br.com.gds.login.utils.commons.LayoutSetup
 import br.com.gds.login_default.databinding.ActivityMainBinding
 import com.google.firebase.FirebaseApp
 
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+
+    private val builderLogin by lazy {
+        LoginModuleInitializer.Builder(
+            context = this,
+            loginModuleDependency = getDependency()
+        )
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupActivity()
@@ -25,23 +28,14 @@ class MainActivity : AppCompatActivity() {
     private fun setupActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        startActivity(
-            MainLoginContainerActivity.newInstance(
-                context = this,
-                navigationScreenAction = NavigationScreenAction.ToLogin,
-                layoutSetup = LayoutSetup(
-                    loginFragment = LoginUI(
-                        backgroundColor = R.color.test_2,
-                        titleColor = R.color.test_1
-                    ),
-                    layoutDefault = LayoutDefault(
-                        statusBarColor = R.color.edit_text_incorrect,
-                        navigationBarColor = R.color.test_1,
-                    ),
-                )
-            )
+        builderLogin.initModuleLogin(
+            action = NavigationScreenAction.ToLogin
         )
-
-
     }
+
+
+    private fun getDependency() = LoginModuleDependency(
+        layoutSetup = MockUI.layoutSetup,
+        loginModuleCallbackProvider = null
+    )
 }

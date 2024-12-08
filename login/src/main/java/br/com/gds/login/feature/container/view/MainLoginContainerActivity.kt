@@ -9,8 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.fragment.NavHostFragment
-import br.com.gds.login.LoginModuleDependency
-import br.com.gds.login.LoginModuleRouter
+import br.com.gds.login.LoginGraphDirections
 import br.com.gds.login.LoginModuleSession
 import br.com.gds.login.R
 import br.com.gds.login.databinding.ActivityMainLoginContainerBinding
@@ -30,14 +29,13 @@ class MainLoginContainerActivity : AppCompatActivity() {
     }
 
     private val navController by lazy {
-        (supportFragmentManager.findFragmentById(R.id.nav_host_login_module) as NavHostFragment).navController
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_login_module) as NavHostFragment
+        return@lazy navHostFragment.navController
     }
 
     private val layoutSetup by lazy {
         LoginModuleSession.loginModuleDependency?.layoutSetup ?: LayoutSetup()
     }
-
-    private val router by lazy { LoginModuleRouter(navController) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,9 +52,21 @@ class MainLoginContainerActivity : AppCompatActivity() {
 
     private fun navigationHandler() {
         when (navigationScreenAction) {
-            is NavigationScreenAction.ToLogin -> router.navigateGlobalToLogin()
-            is NavigationScreenAction.ToRegisterPerson -> router.navigateGlobalToRegister()
-            is NavigationScreenAction.ToResetPassword -> router.navigateLoginToResetPassword()
+            is NavigationScreenAction.ToLogin -> {
+                navController.navigate(
+                    LoginGraphDirections.actionGlobalLoginFragment()
+                )
+            }
+            is NavigationScreenAction.ToRegisterPerson -> {
+                navController.navigate(
+                    LoginGraphDirections.actionGlobalRegisterFragment()
+                )
+            }
+            is NavigationScreenAction.ToResetPassword -> {
+                navController.navigate(
+                    LoginGraphDirections.actionGlobalRegisterFragment()
+                )
+            }
         }
     }
 
@@ -118,32 +128,3 @@ class MainLoginContainerActivity : AppCompatActivity() {
         }
     }
 }
-
-
-//        // Dentro do LoginModule
-
-//        LoginModuleInitializer.Builder(
-//            context = this,
-//            navController = navController,
-//            loginModuleDependency = LoginModuleDependency(
-//                registerFragment = RegisterPersonalUI(
-//                    enableButtonAddress = false,
-//                    enableNickname = false,
-//                    backgroundColor = getColor(R.color.test_1),
-//                    titleColor = getColor(R.color.test_2),
-//                ),
-//                addressRegisterFragment = AddressRegisterUI(backgroundColor = 0, titleColor = 0),
-//                autoRegisterFragment = AutomovelRegisterUI(backgroundColor = 0, titleColor = 0),
-//                loginFragment = LoginUI(
-//                    backgroundColor = R.color.test_1,
-//                    titleColor = R.color.test_2
-//                ),
-//                resetPasswordFragment = ResetPasswordUI(backgroundColor = 0, titleColor = 0),
-//            )
-//        ).buildLogin()
-
-//        LoginModuleInitializer.Builder(
-//            context = this,
-//            navController = navController,
-//            loginModuleDependency = loginModuleDependency
-//        ).buildRegister()
