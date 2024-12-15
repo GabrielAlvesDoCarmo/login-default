@@ -21,6 +21,12 @@ class ResetPasswordFragment : Fragment() {
           ?: ResetPasswordUI()
     }
 
+    private val provider by lazy {
+        LoginModuleSession
+          .loginModuleDependency
+          ?.loginModuleCallbackProvider
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }

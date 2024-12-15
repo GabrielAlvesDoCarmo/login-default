@@ -19,6 +19,10 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
+    private val providerSampleImpl by lazy {
+        CallbackProviderSampleImpl(applicationContext)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupActivity()
@@ -36,6 +40,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun getDependency() = LoginModuleDependency(
         layoutSetup = MockUI.layoutSetup,
-        loginModuleCallbackProvider = null
+        loginModuleCallbackProvider = providerSampleImpl
     )
 }
