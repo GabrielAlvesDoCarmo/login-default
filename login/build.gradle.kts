@@ -59,7 +59,7 @@ afterEvaluate {
                 from(components["release"])
                 groupId = "com.github.GabrielAlvesDoCarmo"
                 artifactId = "login-default"
-                version = "0.0.11"
+                version = "0.0.13"
             }
         }
     }
