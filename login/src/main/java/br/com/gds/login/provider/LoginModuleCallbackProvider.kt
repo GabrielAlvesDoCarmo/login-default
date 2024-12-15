@@ -1,9 +1,15 @@
 package br.com.gds.login.provider
 
-import android.content.Context
-
 
 interface LoginModuleCallbackProvider {
-    fun gotToLoginSuccess(context: Context)
-    fun gotToRegisterSuccess(context: Context)
+    fun successLogin()
+    fun backButtonLogin()
+    fun errorLogin()
+    fun successRegister()
+    fun backButtonRegister()
+    fun errorRegister()
+    fun successResetPassword()
+    fun backButtonResetPassword()
+    fun errorResetPassword()
+    fun clickBtnLogin()
 }

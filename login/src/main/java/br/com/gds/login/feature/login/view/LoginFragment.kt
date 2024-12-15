@@ -4,200 +4,148 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import br.com.gds.login.LoginModuleSession
 import br.com.gds.login.databinding.FragmentLoginBinding
 import br.com.gds.login.feature.login.model.LoginUI
+import br.com.gds.login.feature.login.model.UserLogin
+import br.com.gds.login.feature.login.model.isFormValid
+import br.com.gds.login.feature.login.viewmodel.LoginUIState
 import br.com.gds.login.feature.login.viewmodel.LoginViewModel
+import br.com.gds.login.utils.extensions.edittext.EditTextState
+import br.com.gds.login.utils.extensions.navigateTo
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginFragment : Fragment() {
 
-    private val viewModel: LoginViewModel by viewModels()
-    private val navController by lazy {
-        findNavController()
-    }
-    private var _binding: FragmentLoginBinding? = null
-    private val binding get() = _binding!!
-    private var email = false
-    private var password = false
+    private lateinit var binding: FragmentLoginBinding
+    private val viewModel: LoginViewModel by viewModel()
 
     private val fragmentUI by lazy {
         LoginModuleSession.loginModuleDependency?.layoutSetup?.loginFragment ?: LoginUI()
     }
+    private val provider by lazy {
+        LoginModuleSession.loginModuleDependency?.loginModuleCallbackProvider
+    }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-//    @SuppressLint("ResourceAsColor")
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//
-//        fragmentUI.let {
-//            binding.loginContainerScroll.setBackgroundColor(
-//                requireContext().getColor(it.backgroundColor)
-//            )
-//            binding.loginTextTitle.setTextColor(
-//                requireContext().getColor(it.titleColor)
-//            )
-//        }
-//        setupListeners()
-//        fieldObserve()
-//        viewModelObserve()
-//    }
-//
-//    private fun setupListeners() = binding.apply {
-//        loginBtnRegister.setOnClickListener {
-//            register()
-//            toastMessage("Clique btn register")
-//        }
-//        loginBtnResetPassword.setOnClickListener {
-//            resetPassword()
-//            toastMessage("Clique btn reset password")
-//        }
-//        loginBtnEnterApp.setOnClickListener {
-//            viewModel.login(
-//                userLogin = getUserLogin()
-//            )
-//        }
-//        loginCkRemember.setOnCheckedChangeListener { _, check ->
-//            if (check) viewModel.rememberDataUser() else viewModel.removeDataUser()
-//            toastMessage("Clique checkbox")
-//        }
-//        providersListeners()
-//    }
-//
-//    private fun getUserLogin() = UserLogin(
-//        email = binding.loginEmailEdit.text.toString(),
-//        password = binding.loginPasswordEdit.text.toString(),
-//        isRemember = binding.loginCkRemember.isChecked
-//    )
-//
-//    private fun resetPassword() {
-//      navController.navigate(
-//          LoginFragmentDirections.actionLoginFragmentToResetPasswordFragment2()
-//      )
-//    }
-//
-//    private fun register() {
-//        navController.navigate(
-//            LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
-//        )
-//    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupViews()
+        fieldsObservers()
+        uiStateObserver()
+    }
 
-//    private fun providersListeners() = binding.apply {
-//        googleProvider.setOnClickListener {
-//            toastMessage("Clique google")
-//        }
-//        appleProvider.setOnClickListener {
-//            toastMessage("Clique apple")
-//        }
-//        facebookProvider.setOnClickListener {
-//            toastMessage("Clique facebook")
-//        }
-//        phoneProvider.setOnClickListener {
-//            toastMessage("Clique phone")
-//        }
-//        guestsProvider.setOnClickListener {
-//            toastMessage("Clique guests")
-//        }
-//    }
-//
-//    private fun fieldObserve() {
-//        lifecycleScope.launch {
-//            binding.loginEmailEdit.validateEmailField().collect { state ->
-//                when (state) {
-//                    is EditTextState.Empty -> emailEmptyStyle()
-//                    is EditTextState.Invalid -> emailInvalidStyle(state)
-//                    is EditTextState.Valid -> emailValidStyle()
-//                }
-//                enabledButton()
-//            }
-//        }
-//        lifecycleScope.launch {
-//            binding.loginPasswordEdit.validatePasswordField().collect { state ->
-//                when (state) {
-//                    is EditTextState.Empty -> passwordEmptyStyle()
-//                    is EditTextState.Invalid -> passwordInvalidStyle(state)
-//                    is EditTextState.Valid -> passwordValidStyle()
-//                }
-//                enabledButton()
-//            }
-//        }
-//    }
-//
-//    private fun enabledButton() = binding.loginBtnEnterApp.apply {
-//        isEnabled = email && password
-//    }
-//
-//    private fun viewModelObserve() {
-//        lifecycleScope.launch {
-//            viewModel.uiState.collect { state ->
-////                when (state) {
-////                    is LoginUIState -> {}
-////                    is LoginUIState.Loading -> {}
-////                    is LoginUIState.Success -> {}
-////                }
-//            }
-//        }
-//    }
-//
-//    private fun passwordInvalidStyle(state: EditTextState.Invalid) {
-//        binding.loginPasswordLayout.apply {
-//            error = state.errorMessage
-//            applyStyle(R.style.TextInputLayout_Invalid)
-//        }
-//        password = false
-//    }
-//
-//    private fun passwordValidStyle() {
-//        binding.loginPasswordLayout.apply {
-//            error = null
-//            applyStyle(R.style.TextInputLayout_Valid)
-//        }
-//        password = true
-//    }
-//
-//    private fun passwordEmptyStyle() {
-//        binding.loginPasswordLayout.apply {
-//            error = null
-//            applyStyle(R.style.TextInputLayout_Empty)
-//        }
-//        password = false
-//    }
-//
-//    private fun emailValidStyle() {
-//        binding.loginEmailLayout.apply {
-//            error = null
-//            applyStyle(R.style.TextInputLayout_Valid)
-//        }
-//        email = true
-//    }
-//
-//    private fun emailInvalidStyle(state: EditTextState.Invalid) {
-//        binding.loginEmailLayout.apply {
-//            error = state.errorMessage
-//            applyStyle(R.style.TextInputLayout_Invalid)
-//        }
-//        email = false
-//    }
-//
-//    private fun emailEmptyStyle() {
-//        binding.loginEmailLayout.apply {
-//            error = null
-//            applyStyle(R.style.TextInputLayout_Empty)
-//        }
-//        email = false
-//    }
+    private fun uiStateObserver() {
+        viewModel.uiState.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is LoginUIState.Error -> {
+
+                }
+
+                is LoginUIState.Loading -> {
+
+                }
+
+                is LoginUIState.Success -> {
+                    provider?.successLogin()
+                }
+            }
+        }
+    }
+
+    private fun fieldsObservers() {
+        viewModel.loginFormState.observe(viewLifecycleOwner) { state ->
+            binding.apply {
+                loginEmailEdit.error = if (state.emailState is EditTextState.Invalid)
+                    state.emailState.errorMessage else null
+
+                loginPasswordEdit.error = if (state.passwordState is EditTextState.Invalid)
+                    state.passwordState.errorMessage else null
+
+                loginButtonEnterApp.isEnabled = state.isFormValid()
+            }
+        }
+    }
+
+    private fun setupViews() {
+        defineColorsScreen()
+        changeEditTextFormLogin()
+        navigateScreenListeners()
+        providersListeners()
+        enterAppListeners()
+    }
+
+    private fun enterAppListeners() = with(binding) {
+        loginButtonEnterApp.setOnClickListener {
+            provider?.clickBtnLogin()
+            viewModel.login(
+                userLogin = UserLogin(
+                    email = loginEmailEdit.text.toString(),
+                    password = loginPasswordEdit.text.toString(),
+                    isRemember = loginCkRemember.isChecked
+                )
+            )
+        }
+        loginBtnFingerprint.setOnClickListener {
+
+        }
+    }
+
+    private fun navigateScreenListeners() = with(binding) {
+        loginBtnResetPassword.setOnClickListener {
+            navigateTo(
+                LoginFragmentDirections.actionLoginFragmentToResetPasswordFragment2()
+            )
+        }
+        loginBtnRegister.setOnClickListener {
+            navigateTo(
+                LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
+            )
+        }
+    }
+
+    private fun defineColorsScreen() = with(binding) {
+        loginRootContainerConstraint.setBackgroundColor(
+            requireContext().getColor(fragmentUI.backgroundColor)
+        )
+        loginTextTitle.setTextColor(
+            requireContext().getColor(fragmentUI.titleColor)
+        )
+    }
+
+    private fun changeEditTextFormLogin() = with(binding) {
+        loginEmailEdit.doOnTextChanged { text, _, _, _ ->
+            viewModel.onEmailChanged(
+                email = text.toString()
+            )
+        }
+        loginPasswordEdit.doOnTextChanged { text, _, _, _ ->
+            viewModel.onPasswordChanged(
+                password = text.toString()
+            )
+        }
+    }
+
+    private fun providersListeners() = with(binding) {
+        googleProvider.setOnClickListener { }
+        appleProvider.setOnClickListener { }
+        facebookProvider.setOnClickListener { }
+        phoneProvider.setOnClickListener { }
+        guestsProvider.setOnClickListener { }
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
     }
 }

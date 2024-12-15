@@ -1,5 +1,8 @@
 package br.com.gds.login.ci
 
+import br.com.gds.login.feature.login.usecase.LoginUseCase
+import br.com.gds.login.feature.login.usecase.LoginUseCaseImpl
+import br.com.gds.login.feature.login.viewmodel.LoginViewModel
 import br.com.gds.login.repository.auth.AuthRepository
 import br.com.gds.login.repository.auth.AuthRepositoryImpl
 import br.com.gds.login.feature.register.personal.repository_firebase.RegisterPersonalRepository
@@ -49,11 +52,21 @@ private val useCases = module {
             repository = get()
         )
     }
+
+    factory<LoginUseCase> {
+        LoginUseCaseImpl()
+    }
 }
 
 private val viewModels = module {
     viewModel {
         RegisterPersonalViewModel(
+            useCase = get()
+        )
+    }
+
+    viewModel {
+        LoginViewModel(
             useCase = get()
         )
     }

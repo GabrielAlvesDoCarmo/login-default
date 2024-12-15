@@ -8,6 +8,8 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.findNavController
 import java.io.ByteArrayOutputStream
 
 fun Fragment.toastMessage(message: String) {
@@ -43,4 +45,8 @@ fun Bitmap.convertImage(): ByteArray {
     return ByteArrayOutputStream().apply {
         this@convertImage.compress(Bitmap.CompressFormat.JPEG, 100, this@apply)
     }.toByteArray()
+}
+
+fun Fragment.navigateTo(direction: NavDirections) {
+    findNavController().navigate(direction)
 }

@@ -2,13 +2,8 @@ package br.com.gds.login.feature.login.viewmodel
 
 import br.com.gds.login.feature.login.model.UserLogin
 
-data class LoginUIState(
-    val isLoading: Boolean = false,
-    val user: UserLogin? = null,
-    val error: String? = null
-) {
-    fun isSuccessful() = user != null && error == null && !isLoading
-    fun setLoading(isLoading: Boolean) = copy(isLoading = isLoading)
-    fun setError(error: String) = copy(error = error)
-    fun setSuccess(user: UserLogin) = copy(user = user)
+sealed interface LoginUIState {
+    data object Loading : LoginUIState
+    data class Error(val message: String) : LoginUIState
+    data class Success(val userLogin: UserLogin) : LoginUIState
 }

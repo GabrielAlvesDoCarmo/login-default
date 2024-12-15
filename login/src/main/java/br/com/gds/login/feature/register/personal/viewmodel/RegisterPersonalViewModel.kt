@@ -7,25 +7,20 @@ import androidx.lifecycle.viewModelScope
 import br.com.gds.login.feature.register.personal.model.RegisterPersonalUser
 import br.com.gds.login.feature.register.personal.usecase.RegisterPersonalUseCase
 import br.com.gds.login.feature.register.personal.usecase.RegisterUseCaseState
-import br.com.gds.login.utils.commons.FormState
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.stateIn
+import br.com.gds.login.feature.register.personal.model.RegisterPersonalFormState
 import kotlinx.coroutines.launch
 
 class RegisterPersonalViewModel(
     private val useCase: RegisterPersonalUseCase
 ) : ViewModel() {
-    private val _formState: MutableLiveData<FormState> = MutableLiveData()
-    val formState: LiveData<FormState> = _formState
+    private val _formState: MutableLiveData<RegisterPersonalFormState> = MutableLiveData()
+    val registerPersonalFormState: LiveData<RegisterPersonalFormState> = _formState
 
     private var _uiState: MutableLiveData<RegisterPersonalState> = MutableLiveData()
     val uiState: LiveData<RegisterPersonalState> = _uiState
 
     init {
-        _formState.value = FormState()
+        _formState.value = RegisterPersonalFormState()
     }
 
     fun register(registerPersonalUser: RegisterPersonalUser) {
