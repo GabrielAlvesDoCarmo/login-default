@@ -11,7 +11,8 @@
     <string name="remember">Lembrar</string>
     <string name="esqueceu_sua_senha">Esqueceu sua senha ?</string>
     <string name="registre_se">Registre-se</string>
-    <string name="reset_password">Recupere Aqui!</string>
+    <string name="reset_password">Recuperar Senha</string>
     <string name="digite_seu_nome">Digite seu nome :</string>
     <string name="digite_seu_nickname">Digite seu nickname (Apelido)</string>
+    <string name="remember_password_login">Lembrar senha</string>
 </resources>
