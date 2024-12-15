@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import br.com.gds.login.LoginModuleSession
@@ -49,14 +50,14 @@ class LoginFragment : Fragment() {
         viewModel.uiState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is LoginUIState.Error -> {
-
+                    binding.loginProgressBar.isVisible = false
+                    provider?.errorLogin()
                 }
 
-                is LoginUIState.Loading -> {
-
-                }
+                is LoginUIState.Loading -> binding.loginProgressBar.isVisible = true
 
                 is LoginUIState.Success -> {
+                    binding.loginProgressBar.isVisible = false
                     provider?.successLogin()
                 }
             }
@@ -111,6 +112,9 @@ class LoginFragment : Fragment() {
             navigateTo(
                 LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
             )
+        }
+        loginButtonBack.setOnClickListener {
+            provider?.backButtonLogin()
         }
     }
 

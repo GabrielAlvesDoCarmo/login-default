@@ -11,9 +11,9 @@ import br.com.gds.login.utils.commons.LayoutSetup
 object MockUI {
     private val layoutDefault = LayoutDefault(
         isStatusBarEnabled = true,
-        statusBarColor = R.color.teste_one,
+        statusBarColor = R.color.white,
         isNavigationBarEnabled = true,
-        navigationBarColor = R.color.teste_two
+        navigationBarColor = R.color.white
     )
 
     private val registerFragment = RegisterPersonalUI(

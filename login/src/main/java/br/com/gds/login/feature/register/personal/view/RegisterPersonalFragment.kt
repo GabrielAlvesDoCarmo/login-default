@@ -23,6 +23,10 @@ class RegisterPersonalFragment : Fragment() {
             ?: RegisterPersonalUI()
     }
 
+    private val provider by lazy {
+        LoginModuleSession.loginModuleDependency?.loginModuleCallbackProvider
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

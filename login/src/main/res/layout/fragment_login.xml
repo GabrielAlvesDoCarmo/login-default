@@ -13,6 +13,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/login_button_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/login_modulo_bg_button_back"
+            android:padding="@dimen/size_8dp"
+            android:src="@drawable/arrow_back_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/login_text_title"
             android:layout_width="wrap_content"
@@ -111,12 +123,22 @@
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="@dimen/size_20sp"
-            app:layout_constraintBottom_toTopOf="@+id/login_linear_container_or"
+            app:layout_constraintBottom_toTopOf="@+id/login_progress_bar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/container_login_linear" />
 
+        <ProgressBar
+            android:id="@+id/login_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:indeterminateTint="@color/test_1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/login_button_enter_app"
+            app:layout_constraintBottom_toTopOf="@id/login_linear_container_or"/>
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/login_linear_container_or"
             android:layout_width="match_parent"
@@ -125,7 +147,7 @@
             app:layout_constraintBottom_toTopOf="@+id/provider_linear_container"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/login_button_enter_app">
+            app:layout_constraintTop_toBottomOf="@+id/login_progress_bar">
 
             <View
                 android:id="@+id/view_one"
@@ -143,7 +165,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="Ou conecte com sua conta"
+                android:text="@string/or_connect_account"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/view_one"
                 app:layout_constraintStart_toEndOf="@+id/view_two"

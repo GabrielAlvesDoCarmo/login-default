@@ -16,4 +16,5 @@
     <string name="digite_seu_sobrenome">Sobrenome :</string>
     <string name="digite_seu_nickname">Digite seu nickname (Apelido)</string>
     <string name="remember_password_login">Lembrar senha</string>
+    <string name="or_connect_account">Ou conecte com sua conta</string>
 </resources>
