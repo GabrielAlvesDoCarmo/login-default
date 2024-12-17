@@ -40,7 +40,7 @@ class RegisterPersonalFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.loginPhoneEdit.setMaskEdit(EditTextMask.PHONE)
+        binding.registerPhoneEdit.setMaskEdit(EditTextMask.PHONE)
         setupViews()
         fieldObserver()
         uiStateObserver()
