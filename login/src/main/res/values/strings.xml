@@ -17,4 +17,5 @@
     <string name="digite_seu_nickname">Digite seu nickname (Apelido)</string>
     <string name="remember_password_login">Lembrar senha</string>
     <string name="or_connect_account">Ou conecte com sua conta</string>
+    <string name="register_address">Cadastrar Endereço</string>
 </resources>

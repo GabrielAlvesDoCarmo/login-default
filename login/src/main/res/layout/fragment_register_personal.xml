@@ -31,12 +31,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/cadastrese"
-            android:layout_marginBottom="@dimen/size_24dp"
+            android:layout_marginBottom="@dimen/size_32dp"
             android:textColor="@color/black"
             android:textSize="@dimen/size_font_24sp"
             app:layout_constraintBottom_toTopOf="@+id/register_form_name_container"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed" />
@@ -48,6 +47,7 @@
             android:orientation="horizontal"
             app:layout_constraintBottom_toTopOf="@+id/register_form_container"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/register_text_title">
 
@@ -86,13 +86,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginBottom="@dimen/size_24dp"
-            app:layout_constraintBottom_toTopOf="@+id/register_button_register_app"
+            android:layout_marginBottom="@dimen/size_8dp"
+            app:layout_constraintBottom_toTopOf="@+id/register_button_register_address"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/register_form_name_container">
-
-            '
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/register_email_edit"
@@ -148,6 +146,24 @@
 
         </LinearLayout>
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/register_button_register_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/state_button_login"
+            android:enabled="false"
+            android:gravity="center"
+            android:padding="@dimen/size_16dp"
+            android:text="@string/register_address"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:layout_marginBottom="@dimen/size_8dp"
+            android:textSize="@dimen/size_font_14sp"
+            app:layout_constraintBottom_toTopOf="@+id/register_button_register_app"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/register_form_container" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/register_button_register_app"
@@ -166,12 +182,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/register_form_container" />
+            app:layout_constraintTop_toBottomOf="@+id/register_button_register_address" />
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/register_linear_container_or"
             android:layout_width="match_parent"
+            android:layout_marginBottom="@dimen/size_8dp"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@+id/provider_linear_container"
             app:layout_constraintEnd_toEndOf="parent"
@@ -195,7 +212,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="Ou cadastre-se com sua conta"
-                android:layout_marginBottom="@dimen/size_16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/view_one"
                 app:layout_constraintStart_toEndOf="@+id/view_two"
