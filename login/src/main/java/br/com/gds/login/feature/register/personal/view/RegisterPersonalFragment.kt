@@ -11,6 +11,9 @@ import br.com.gds.login.databinding.FragmentRegisterPersonalBinding
 import br.com.gds.login.feature.register.personal.model.RegisterPersonalUI
 import br.com.gds.login.feature.register.personal.viewmodel.RegisterPersonalViewModel
 import br.com.gds.login.utils.extensions.appendMessageToFile
+import br.com.gds.login.utils.extensions.edittext.EditTextMask
+import br.com.gds.login.utils.extensions.edittext.formatPhone
+import br.com.gds.login.utils.extensions.edittext.setMaskEdit
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RegisterPersonalFragment : Fragment() {
@@ -37,13 +40,7 @@ class RegisterPersonalFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val option= arrayOf("Opção 1", "Opção 2", "Opção 3")
-
-        binding.registerSpinner.adapter = ArrayAdapter(
-            requireContext(),
-            android.R.layout.simple_spinner_item,
-            option
-        )
+        binding.loginPhoneEdit.setMaskEdit(EditTextMask.PHONE)
         setupViews()
         fieldObserver()
         uiStateObserver()

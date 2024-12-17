@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:padding="@dimen/size_24dp"
+    android:scrollbars="none"
     tools:context=".feature.login.view.LoginFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -53,6 +54,7 @@
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/login_email_edit"
                 android:layout_width="match_parent"
+                android:inputType="textEmailAddress"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/size_8dp"
                 android:layout_weight="1"
@@ -67,6 +69,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:inputType="textPassword"
                 android:background="@drawable/login_module_bg_edit_text"
                 android:drawableStart="@drawable/baseline_password_24"
                 android:drawablePadding="@dimen/size_8dp"
@@ -116,13 +119,13 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/size_8dp"
             android:background="@drawable/state_button_login"
-            android:backgroundTint="@color/black"
             android:gravity="center"
             android:padding="@dimen/size_16dp"
             android:text="@string/login"
             android:textAllCaps="false"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="@dimen/size_20sp"
+            android:enabled="false"
             app:layout_constraintBottom_toTopOf="@+id/login_progress_bar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

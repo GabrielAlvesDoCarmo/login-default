@@ -2,7 +2,9 @@ package br.com.gds.login.utils.extensions.edittext
 
 import android.content.res.ColorStateList
 import androidx.annotation.StyleRes
+import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.widget.addTextChangedListener
+import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.android.material.textfield.TextInputEditText
@@ -100,4 +102,91 @@ fun TextInputLayout.applyStyle(@StyleRes styleRes: Int) {
 
 inline fun <reified T> MutableLiveData<T>.toLiveData(): LiveData<T> {
     return this as LiveData<T>
+}
+
+fun AppCompatEditText.setMaskEdit(
+    typeMask: EditTextMask
+) {
+    this.doOnTextChanged { text, _, _, _ ->
+        val formattedText = when (typeMask) {
+            EditTextMask.CEP -> formatCEP(text.toString())
+            EditTextMask.PHONE -> formatPhone(text.toString())
+            EditTextMask.CPF -> formatCPF(text.toString())
+            EditTextMask.PLACA -> formatPlacaNormal(text.toString())
+            EditTextMask.PLACA_MERCOSUL -> formatPlacaMercosul(text.toString())
+        }
+        if (formattedText != text.toString()) {
+            this.setText(formattedText)
+            this.setSelection(formattedText.length)
+        }
+    }
+}
+
+fun formatPhone(text: String): String {
+    val digits = text.replace(Regex("\\D"), "")
+    return when (digits.length) {
+        0 -> ""
+        in 1..2 -> "(${digits}"
+        in 3..7 -> "(${digits.substring(0, 2)}) ${digits.substring(2)}"
+        in 8..11 -> "(${digits.substring(0, 2)}) ${digits.substring(2, 7)}-${digits.substring(7)}"
+        else -> "(${digits.substring(0, 2)}) ${digits.substring(2, 7)}-${digits.substring(7, 11)}"
+    }
+}
+
+fun formatCEP(text: String): String {
+    val digits = text.replace(Regex("\\D"), "")
+    return when (digits.length) {
+        0 -> ""
+        in 1..5 -> "$digits"
+        in 6..8 -> "${digits.substring(0, 5)}-${digits.substring(5)}"
+        else -> "${digits.substring(0, 5)}-${digits.substring(5, 8)}"
+    }
+}
+
+fun formatCPF(text: String): String {
+    val digits = text.replace(Regex("\\D"), "")
+    return when (digits.length) {
+        0 -> ""
+        in 1..3 -> digits
+        in 4..6 -> "${digits.substring(0, 3)}.${digits.substring(3)}"
+        in 7..9 -> "${digits.substring(0, 3)}.${digits.substring(3, 6)}.${digits.substring(6)}"
+        in 10..11 -> "${digits.substring(0, 3)}.${digits.substring(3, 6)}.${digits.substring(6, 9)}-${digits.substring(9)}"
+        else -> "${digits.substring(0, 3)}.${digits.substring(3, 6)}.${digits.substring(6, 9)}-${digits.substring(9, 11)}"
+    }
+}
+
+fun formatPlacaNormal(text: String): String {
+    val cleanedText = text
+        .replace(Regex("[^a-zA-Z0-9]"), "")
+        .uppercase()
+    return when (cleanedText.length) {
+        0 -> ""
+        in 1..4 -> cleanedText
+        in 5..7 -> "${cleanedText.substring(0, 4)}-${cleanedText.substring(4)}"
+        else -> "${cleanedText.substring(0, 4)}-${cleanedText.substring(4, 7)}"
+    }
+}
+
+fun formatPlacaMercosul(text: String): String {
+    val cleanedText = text.replace(Regex("[^a-zA-Z0-9]"), "").uppercase()
+    return when (cleanedText.length) {
+        0 -> ""
+        in 1..3 -> cleanedText
+        4 -> "${cleanedText.substring(0, 3)}${
+            if (cleanedText[3].isLetter()) "" 
+            else cleanedText[3]
+        }"
+        in 5..7 -> "${cleanedText.substring(0, 3)}${cleanedText.substring(3, 4)}${
+            if (cleanedText.substring(4, 5).matches(Regex("[a-zA-Z]"))) cleanedText.substring(4, 5) 
+            else ""
+        }${
+            if (cleanedText.substring(5).matches(Regex("[0-9]"))) cleanedText.substring(5)
+            else ""
+        }"
+        else -> "${cleanedText.substring(0, 3)}${cleanedText.substring(3, 4)}${cleanedText.substring(4, 5)}${cleanedText.substring(5, 7)}"
+    }
+}
+
+enum class EditTextMask {
+    CEP, PHONE, CPF, PLACA, PLACA_MERCOSUL
 }
