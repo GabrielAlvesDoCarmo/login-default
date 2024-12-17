@@ -134,7 +134,7 @@
                 android:padding="@dimen/size_16dp" />
 
             <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/register_password_edit"
+                android:id="@+id/register_confirm_password_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/size_8dp"
