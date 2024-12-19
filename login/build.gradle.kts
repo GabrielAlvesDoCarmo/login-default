@@ -115,6 +115,55 @@ dependencies {
 
 }
 
+tasks.register("generateReleaseTag") {
+    doLast {
+        val versionName = project.properties["versionName"] as String
+        val tagName = "v${versionName}"
+        exec {
+            commandLine("git", "tag", "-a", tagName, "-m", "Release $versionName")
+        }
+    }
+}
+
+tasks.register("generateReleaseVersion") {
+    doLast {
+        val versionName = project.properties["versionName"] as String
+        val nextVersionName = incrementVersionName(versionName)
+
+        // Atualiza o versionName no arquivo build.gradle.kts
+        val buildFile = project.file("build.gradle.kts")
+        buildFile.writeText(
+            buildFile.readText().replace(Regex("versionName = \"$versionName\""), "versionName = \"$nextVersionName\"")
+        )
+
+        // Adiciona e commita as mudanças
+        exec {
+            commandLine("git", "add", "build.gradle.kts")
+        }
+        exec {
+            commandLine("git", "commit", "-m", "Bump version to $nextVersionName")
+        }
+    }
+}
+
+fun incrementVersionName(versionName: String, incrementPosition: Int = 3): String {
+    val parts = versionName.split(".")
+    if (incrementPosition < 0 || incrementPosition >= parts.size) {
+        throw IllegalArgumentException("Invalid increment position: $incrementPosition")
+    }
+
+    val incrementedPart = parts[incrementPosition].toInt() + 1
+    val newParts = parts.toMutableList()
+    newParts[incrementPosition] = incrementedPart.toString()
+
+    // Resetar os dígitos à direita do dígito incrementado para 0
+    for (i in incrementPosition + 1 until newParts.size) {
+        newParts[i] = "0"
+    }
+
+    return newParts.joinToString(".")
+}
+
 kapt {
     correctErrorTypes = true
     generateStubs = true

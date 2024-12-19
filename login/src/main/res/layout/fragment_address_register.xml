@@ -1,13 +1,235 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".feature.register.address.view.AddressRegisterFragment">
+    android:fillViewport="true"
+    android:scrollbars="none">
 
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container_register_person_root"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        android:layout_height="wrap_content"
+        android:padding="@dimen/size_24dp"
+        tools:context=".feature.register.personal.view.RegisterPersonalFragment">
 
-</FrameLayout>
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/register_address_button_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/login_modulo_bg_button_back"
+            android:padding="@dimen/size_8dp"
+            android:src="@drawable/arrow_back_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/register_address_text_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cadastrar_endereco"
+            android:textColor="@color/black"
+            android:layout_marginBottom="@dimen/size_32dp"
+            android:textSize="@dimen/size_font_24sp"
+            app:layout_constraintBottom_toTopOf="@+id/container_cep_number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <LinearLayout
+            android:id="@+id/container_cep_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/size_8dp"
+            app:layout_constraintBottom_toTopOf="@+id/register_address_edit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/register_address_text_title">
+
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/register_address_cep_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/login_module_bg_edit_text"
+                android:drawableStart="@drawable/location_searching_24"
+                android:drawableEnd="@drawable/help_24"
+                android:drawablePadding="@dimen/size_8dp"
+                android:layout_marginEnd="@dimen/size_8dp"
+                android:hint="@string/digite_seu_cep"
+                android:inputType="textEmailAddress"
+                android:padding="@dimen/size_16dp"
+                tools:layout_editor_absoluteX="24dp"
+                tools:layout_editor_absoluteY="153dp" />
+
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/register_address_number_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/login_module_bg_edit_text"
+                android:drawableStart="@drawable/location_searching_24"
+                android:drawablePadding="@dimen/size_8dp"
+                android:hint="Numero :"
+                android:inputType="textEmailAddress"
+                android:padding="@dimen/size_16dp"
+                tools:layout_editor_absoluteX="41dp"
+                tools:layout_editor_absoluteY="241dp" />
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/register_address_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/login_module_bg_edit_text"
+            android:drawableStart="@drawable/location_searching_24"
+            android:drawablePadding="@dimen/size_8dp"
+            android:hint="Endereco"
+            android:inputType="textEmailAddress"
+            android:layout_marginBottom="@dimen/size_8dp"
+            android:padding="@dimen/size_16dp"
+            app:layout_constraintBottom_toTopOf="@+id/register_address_complement_edit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/container_cep_number" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/register_address_complement_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginBottom="@dimen/size_8dp"
+            android:background="@drawable/login_module_bg_edit_text"
+            android:drawableStart="@drawable/location_searching_24"
+            android:drawablePadding="@dimen/size_8dp"
+            android:hint="Complemento"
+            android:inputType="textEmailAddress"
+            android:padding="@dimen/size_16dp"
+            app:layout_constraintBottom_toTopOf="@+id/register_address_reference_edit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/register_address_edit" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/register_address_reference_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/login_module_bg_edit_text"
+            android:drawableStart="@drawable/location_searching_24"
+            android:drawablePadding="@dimen/size_8dp"
+            android:hint="Referencia"
+            android:inputType="textEmailAddress"
+            android:padding="@dimen/size_16dp"
+            android:layout_marginBottom="@dimen/size_8dp"
+            app:layout_constraintBottom_toTopOf="@+id/register_address_district_edit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/register_address_complement_edit" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/register_address_district_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/login_module_bg_edit_text"
+            android:drawableStart="@drawable/location_searching_24"
+            android:drawablePadding="@dimen/size_8dp"
+            android:hint="Bairro"
+            android:inputType="textEmailAddress"
+            android:layout_marginBottom="@dimen/size_8dp"
+            android:padding="@dimen/size_16dp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/register_address_reference_edit" />
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/size_8dp"
+            app:layout_constraintBottom_toTopOf="@+id/register_address_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/register_address_district_edit">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/register_addreess_city_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/login_module_bg_edit_text"
+                android:drawableStart="@drawable/location_searching_24"
+                android:drawablePadding="@dimen/size_8dp"
+                android:hint="Cidade"
+                android:layout_marginEnd="@dimen/size_8dp"
+                android:inputType="textEmailAddress"
+                android:padding="@dimen/size_16dp"
+                tools:layout_editor_absoluteX="14dp"
+                tools:layout_editor_absoluteY="677dp" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/register_addreess_state_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/login_module_bg_edit_text"
+                android:drawableStart="@drawable/location_searching_24"
+                android:drawablePadding="@dimen/size_8dp"
+                android:hint="Estado"
+                android:inputType="textEmailAddress"
+                android:padding="@dimen/size_16dp"
+                tools:layout_editor_absoluteX="196dp"
+                tools:layout_editor_absoluteY="677dp" />
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/register_address_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/state_button_login"
+            android:enabled="false"
+            android:gravity="center"
+            android:padding="@dimen/size_8dp"
+            android:layout_marginBottom="@dimen/size_16dp"
+            android:text="@string/cadastrese"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="@dimen/size_20sp"
+            app:layout_constraintBottom_toTopOf="@+id/progress_bar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateTint="@color/test_1"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/register_address_button" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
