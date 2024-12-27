@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Entrar com telefone"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="Digite seu telefone"
+        android:textSize="16sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:overScrollMode="never"
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/size_8dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editTextDigit1"
+                style="@style/PhoneDigitEditText" />
+
+            <EditText
+                android:id="@+id/editTextDigit2"
+                style="@style/PhoneDigitEditText" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editTextDigit3"
+                style="@style/PhoneDigitEditText" />
+
+            <EditText
+                android:id="@+id/editTextDigit4"
+                style="@style/PhoneDigitEditText" />
+
+            <EditText
+                android:id="@+id/editTextDigit5"
+                style="@style/PhoneDigitEditText" />
+
+            <EditText
+                android:id="@+id/editTextDigit6"
+                style="@style/PhoneDigitEditText" />
+
+            <EditText
+                android:id="@+id/editTextDigit7"
+                style="@style/PhoneDigitEditText" />
+
+            <EditText
+                android:id="@+id/traco"
+                style="@style/PhoneDigitEditTextSeparetor" />
+
+            <EditText
+                android:id="@+id/editTextDigit8"
+                style="@style/PhoneDigitEditText" />
+
+            <EditText
+                android:id="@+id/editTextDigit9"
+                style="@style/PhoneDigitEditText" />
+
+            <EditText
+                android:id="@+id/editTextDigit10"
+                style="@style/PhoneDigitEditText" />
+
+            <EditText
+                android:id="@+id/editTextDigit11"
+                style="@style/PhoneDigitEditText" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/buttonSendCode"
+        android:layout_width="wrap_content"
+        android:background="@drawable/bg_icon_provider"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:text="Enviar código" />
+
+</LinearLayout>
