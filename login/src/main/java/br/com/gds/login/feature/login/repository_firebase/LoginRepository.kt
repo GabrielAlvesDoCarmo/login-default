@@ -4,4 +4,5 @@ interface LoginRepository {
     fun login()
     fun isOnline()
     fun saveDataUserLogin()
+    fun logout()
 }

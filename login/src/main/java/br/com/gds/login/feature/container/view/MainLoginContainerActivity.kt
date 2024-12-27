@@ -67,6 +67,13 @@ class MainLoginContainerActivity : AppCompatActivity() {
                     LoginGraphDirections.actionGlobalRegisterFragment()
                 )
             }
+
+            NavigationScreenAction.ToRegisterAddress -> {
+
+            }
+            NavigationScreenAction.ToRegisterAuto -> {
+
+            }
         }
     }
 

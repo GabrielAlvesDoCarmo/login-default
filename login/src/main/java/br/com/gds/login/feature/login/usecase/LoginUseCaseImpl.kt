@@ -1,12 +1,15 @@
 package br.com.gds.login.feature.login.usecase
 
+import br.com.gds.login.feature.login.repository_firebase.LoginRepository
 import br.com.gds.login.utils.commons.LoginModuleConstants.UseCases.Register.ERROR_MESSAGE_EMAIL
 import br.com.gds.login.utils.commons.LoginModuleConstants.UseCases.Register.ERROR_MESSAGE_PASSWORD
 import br.com.gds.login.utils.commons.LoginModuleConstants.UseCases.Register.REGEX_EMAIL
 import br.com.gds.login.utils.commons.LoginModuleConstants.UseCases.Register.REGEX_PASSWORD
 import br.com.gds.login.utils.extensions.edittext.EditTextState
 
-class LoginUseCaseImpl : LoginUseCase{
+class LoginUseCaseImpl(
+    private val loginRepository: LoginRepository
+) : LoginUseCase{
 
     override fun validateEmail(email: String): EditTextState {
         if (email.isEmpty()) return EditTextState.Empty

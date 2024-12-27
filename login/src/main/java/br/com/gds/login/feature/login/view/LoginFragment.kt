@@ -16,10 +16,13 @@ import br.com.gds.login.feature.login.viewmodel.LoginUIState
 import br.com.gds.login.feature.login.viewmodel.LoginViewModel
 import br.com.gds.login.utils.extensions.edittext.EditTextState
 import br.com.gds.login.utils.extensions.navigateTo
+import br.com.gds.login.utils.extensions.toastMessage
+import br.com.gds.login.utils.helpers.biometric.BiometricHelper
+import br.com.gds.login.utils.helpers.biometric.LoginBiometricCallback
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class LoginFragment : Fragment() {
-
+class LoginFragment : Fragment(), LoginBiometricCallback {
+    //TODO(RECONHECIMENTO FACIAL, voz , iris , e de retina)
     private lateinit var binding: FragmentLoginBinding
     private val viewModel: LoginViewModel by viewModel()
 
@@ -29,6 +32,11 @@ class LoginFragment : Fragment() {
     private val provider by lazy {
         LoginModuleSession.loginModuleDependency?.loginModuleCallbackProvider
     }
+
+    private val biometricHelper by lazy {
+        BiometricHelper(this, this)
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -98,7 +106,7 @@ class LoginFragment : Fragment() {
             )
         }
         loginBtnFingerprint.setOnClickListener {
-
+            biometricHelper.showBiometric()
         }
     }
 
@@ -151,5 +159,17 @@ class LoginFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+    }
+
+    override fun onBiometricSuccess() {
+        toastMessage("onBiometricSuccess")
+    }
+
+    override fun onBiometricError() {
+        toastMessage("onBiometricError")
+    }
+
+    override fun onBiometricFaled() {
+        toastMessage("onBiometricFaled")
     }
 }

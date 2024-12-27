@@ -88,6 +88,7 @@ dependencies {
     implementation(libs.androidx.junit.ktx)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.biometric)
 
     testImplementation(libs.junit)
     testImplementation(libs.koin.test.junit4)

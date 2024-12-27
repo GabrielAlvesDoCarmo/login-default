@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.io.ByteArrayOutputStream
 
 fun Fragment.toastMessage(message: String) {
@@ -21,6 +22,16 @@ fun Fragment.requestPermission(
     onGranted: () -> Unit,
     onDenied: () -> Unit
 ): ActivityResultLauncher<String> {
+    if (ContextCompat.checkSelfPermission(
+            this.requireContext(),
+            permission
+        ) == PackageManager.PERMISSION_GRANTED
+    ) {
+        onGranted()
+        return registerForActivityResult(ActivityResultContracts.RequestPermission()) { } // Retornar um launcher vazio, pois a permissão já está concedida
+    }
+
+    // Se a permissão não foi concedida, solicitar a permissão
     return registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
         if (isGranted) {
             onGranted()
