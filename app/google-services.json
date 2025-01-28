@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "817688960042",
+    "firebase_url": "https://login-default-module-default-rtdb.firebaseio.com",
     "project_id": "login-default-module",
     "storage_bucket": "login-default-module.appspot.com"
   },
@@ -12,7 +13,20 @@
           "package_name": "br.com.gds.login_default"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "817688960042-tnnaudvo8hs656phae1ft2ig29armivv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.gds.login_default",
+            "certificate_hash": "24ef2b55c5403cca15fc7ae84306808fff25464c"
+          }
+        },
+        {
+          "client_id": "817688960042-m5s9u3qqac9jabuf35i51bcjt2e4o42s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBHyRMdG_coj1Em8za8zddofL0Wa6qPMmI"
@@ -20,7 +34,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "817688960042-m5s9u3qqac9jabuf35i51bcjt2e4o42s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

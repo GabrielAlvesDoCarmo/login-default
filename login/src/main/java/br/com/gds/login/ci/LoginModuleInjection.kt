@@ -64,7 +64,7 @@ private val useCases = module {
 
     factory<LoginUseCase> {
         LoginUseCaseImpl(
-            loginRepository =  get()
+            repository =  get()
         )
     }
 }

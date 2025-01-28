@@ -1,11 +1,13 @@
 package br.com.gds.login.feature.login.viewmodel
 
+import android.app.Activity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import br.com.gds.login.feature.login.model.LoginFormState
+import androidx.lifecycle.viewModelScope
 import br.com.gds.login.feature.login.model.UserLogin
 import br.com.gds.login.feature.login.usecase.LoginUseCase
+import kotlinx.coroutines.launch
 
 class LoginViewModel(
     private val useCase: LoginUseCase
@@ -17,8 +19,18 @@ class LoginViewModel(
     private var _uiState: MutableLiveData<LoginUIState> = MutableLiveData()
     val uiState: LiveData<LoginUIState> = _uiState
 
+    private val _verificationId = MutableLiveData<String>()
+    val verificationId: LiveData<String> = _verificationId
+
+
     init {
         _formState.value = LoginFormState()
+    }
+
+    fun verifyPhoneNumber(phoneNumber: String, activity: Activity) {
+        viewModelScope.launch {
+            useCase.sendCodeLoginPhone(phoneNumber, activity)
+        }
     }
 
 
@@ -30,7 +42,8 @@ class LoginViewModel(
 
     }
 
-    fun login(userLogin: UserLogin) {
+    suspend fun login(userLogin: UserLogin) {
+        _uiState.value = useCase.login(userLogin)
     }
 
     fun onEmailChanged(email: String) {

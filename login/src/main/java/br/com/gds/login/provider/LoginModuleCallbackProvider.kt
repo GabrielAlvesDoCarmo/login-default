@@ -11,5 +11,5 @@ interface LoginModuleCallbackProvider {
     fun successResetPassword()
     fun backButtonResetPassword()
     fun errorResetPassword()
-    fun clickBtnLogin()
+    fun clickGuestUser()
 }

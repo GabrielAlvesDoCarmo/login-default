@@ -121,7 +121,7 @@
             android:background="@drawable/state_button_login"
             android:gravity="center"
             android:padding="@dimen/size_16dp"
-            android:text="@string/login"
+            android:text="@string/enter_app_login"
             android:textAllCaps="false"
             android:textColor="@color/black"
             android:textSize="@dimen/size_20sp"
@@ -167,6 +167,8 @@
                 android:id="@+id/login_text_or"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="@color/black"
                 android:layout_gravity="center_horizontal"
                 android:text="@string/or_connect_account"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -243,7 +245,6 @@
                 android:background="@android:color/transparent"
                 android:scaleType="centerCrop"
                 android:src="@drawable/baseline_person_24" />
-
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatImageButton
@@ -274,6 +275,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textColor="@color/black"
                 android:padding="@dimen/size_8dp"
                 android:text="@string/ainda_nao_tem_cadastro"
                 android:textSize="@dimen/size_font_14sp"
@@ -284,11 +286,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="end"
                 android:padding="@dimen/size_8dp"
                 android:text="@string/registre_se"
                 android:textColor="@color/test_1"
                 android:textSize="@dimen/size_font_14sp"
                 android:textStyle="bold" />
+
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -7,6 +7,7 @@
     <string name="digite_sua_senha">Digite sua senha :</string>
     <string name="confirm_sua_senha">Confirme sua senha :</string>
     <string name="login">Login</string>
+    <string name="enter_app_login">Entrar</string>
     <string name="ainda_nao_tem_cadastro">Ainda não possue cadastro ?</string>
     <string name="cadastrese"> Cadastre-se</string>
     <string name="cadastrar_endereco">Cadastrar Endereço</string>
@@ -20,4 +21,5 @@
     <string name="remember_password_login">Lembrar senha</string>
     <string name="or_connect_account">Ou conecte com sua conta</string>
     <string name="register_address">Cadastrar Endereço</string>
+    <string name="create_your_account">Ou crie uma conta</string>
 </resources>

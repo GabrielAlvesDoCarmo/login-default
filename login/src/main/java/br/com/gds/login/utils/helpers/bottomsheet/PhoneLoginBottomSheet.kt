@@ -64,7 +64,7 @@ class PhoneLoginBottomSheet(
 
 
         binding.buttonSendCode.setOnClickListener {
-            val phoneNumber = getPhoneNumber()
+            val phoneNumber = "+55" + getPhoneNumber()
 
             onClickSendPhone.invoke(phoneNumber)
             // TODO: Enviar o código de verificação para o número de telefone

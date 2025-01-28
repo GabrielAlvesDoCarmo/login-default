@@ -53,7 +53,9 @@ class CallbackProviderSampleImpl(
         Toast.makeText(context, "Erro ao enviar email", Toast.LENGTH_SHORT).show()
     }
 
-    override fun clickBtnLogin() {
-        Log.i("TAG_AAA", "clickBtnLogin")
+    override fun clickGuestUser() {
+
+        //Not yet implemented
+        Toast.makeText(context, "Click para visitante", Toast.LENGTH_SHORT).show()
     }
 }

@@ -1,5 +1,6 @@
 package br.com.gds.login.feature.register.personal.usecase
 
+import android.app.Activity
 import br.com.gds.login.feature.register.personal.model.RegisterPersonalUser
 import br.com.gds.login.feature.register.personal.repository_firebase.RegisterPersonalRepository
 import br.com.gds.login.feature.register.personal.repository_firebase.RegisterPersonalState
@@ -12,16 +13,19 @@ import br.com.gds.login.utils.commons.LoginModuleConstants.UseCases.Register.REG
 import br.com.gds.login.utils.commons.LoginModuleConstants.UseCases.Register.REGEX_PASSWORD
 import br.com.gds.login.utils.commons.toRegisterRequest
 import br.com.gds.login.utils.extensions.edittext.EditTextState
+import com.google.firebase.auth.PhoneAuthProvider
 
 class RegisterPersonalUseCaseImpl(
     private val repository: RegisterPersonalRepository
 ) : RegisterPersonalUseCase {
     override suspend fun register(registerPersonalUser: RegisterPersonalUser): RegisterUseCaseState {
-        val requestState = repository.register(registerRequest = registerPersonalUser.toRegisterRequest())
-        return when(requestState){
+        val requestState =
+            repository.register(registerRequest = registerPersonalUser.toRegisterRequest())
+        return when (requestState) {
             is RegisterPersonalState.Error -> RegisterUseCaseState.Error(
                 message = requestState.message
             )
+
             is RegisterPersonalState.Success -> RegisterUseCaseState.Success
         }
     }

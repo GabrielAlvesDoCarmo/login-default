@@ -6,8 +6,8 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class LayoutDefault(
+    val defaultColors: DefaultColors = DefaultColors(),
+    val fullScreen: Boolean = false,
     val isStatusBarEnabled: Boolean = true,
-    val statusBarColor: Int = R.color.white,
     val isNavigationBarEnabled: Boolean = true,
-    val navigationBarColor: Int = R.color.white,
 ) : Parcelable

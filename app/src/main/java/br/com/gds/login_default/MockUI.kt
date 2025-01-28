@@ -1,5 +1,6 @@
 package br.com.gds.login_default
 
+import br.com.gds.login.feature.container.model.DefaultColors
 import br.com.gds.login.feature.container.model.LayoutDefault
 import br.com.gds.login.feature.login.model.LoginUI
 import br.com.gds.login.feature.register.address.model.AddressRegisterUI
@@ -9,11 +10,25 @@ import br.com.gds.login.feature.resetpassword.model.ResetPasswordUI
 import br.com.gds.login.utils.commons.LayoutSetup
 
 object MockUI {
+    private val defaultColors = DefaultColors(
+        primaryColor = R.color.teste_two,
+        secondaryColor = R.color.teste_one,
+        tertiaryColor = R.color.teste_tree
+    )
+
     private val layoutDefault = LayoutDefault(
-        isStatusBarEnabled = true,
-        statusBarColor = R.color.white,
-        isNavigationBarEnabled = true,
-        navigationBarColor = R.color.white
+        defaultColors = defaultColors,
+        fullScreen = false,
+        isStatusBarEnabled = false,
+        isNavigationBarEnabled = false
+    )
+
+    private val loginFragment = LoginUI(
+        enableButtonBack = true,
+        enableButtonRememberPassword = true,
+        enableProviders = false,
+        enabledRegister = true,
+        enabledFingerPrint = true
     )
 
     private val registerFragment = RegisterPersonalUI(
@@ -29,11 +44,6 @@ object MockUI {
     )
 
     private val autoRegisterFragment = AutomovelRegisterUI(
-        //        backgroundColor = 0,
-        //        titleColor = 0
-    )
-
-    private val loginFragment = LoginUI(
         //        backgroundColor = 0,
         //        titleColor = 0
     )

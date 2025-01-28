@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.navigation.fragment.NavHostFragment
 import br.com.gds.login.LoginGraphDirections
 import br.com.gds.login.LoginModuleSession
@@ -19,6 +20,7 @@ import com.google.firebase.FirebaseApp
 
 class MainLoginContainerActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainLoginContainerBinding
+    private val Context.dataStore by preferencesDataStore("login_data_store")
 
     private val navigationScreenAction by lazy {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -109,7 +111,7 @@ class MainLoginContainerActivity : AppCompatActivity() {
 
         window.statusBarColor = ContextCompat.getColor(
             this@MainLoginContainerActivity,
-            layoutSetup.layoutDefault.statusBarColor
+            layoutSetup.layoutDefault.defaultColors.primaryColor
         )
     }
 
@@ -119,7 +121,7 @@ class MainLoginContainerActivity : AppCompatActivity() {
 
         window.navigationBarColor = ContextCompat.getColor(
             this@MainLoginContainerActivity,
-            layoutSetup.layoutDefault.navigationBarColor
+            layoutSetup.layoutDefault.defaultColors.primaryColor
         )
 
     }

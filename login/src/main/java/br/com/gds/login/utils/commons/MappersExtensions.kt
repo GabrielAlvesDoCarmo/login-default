@@ -3,6 +3,8 @@ package br.com.gds.login.utils.commons
 import br.com.gds.core.login_module.model.login.LoginResponse
 import br.com.gds.core.login_module.model.register.RegisterRequest
 import br.com.gds.core.login_module.model.register.RegisterResponse
+import br.com.gds.login.feature.login.model.UserLogin
+import br.com.gds.login.feature.login.model.UserLoginRequest
 import br.com.gds.login.feature.register.personal.model.RegisterPersonalUser
 import br.com.gds.login.repository.auth.model.UserAuthInfo
 import com.google.firebase.auth.AuthResult
@@ -29,4 +31,9 @@ private fun AuthResult.getUserInfoResponse() = UserAuthInfo(
     isAnonymous = this.user?.isAnonymous ?: false,
     isEmailVerified = this.user?.isEmailVerified ?: false,
     phoneNumber = this.user?.phoneNumber.orEmpty(),
+)
+
+
+fun UserLogin.toLoginRequest() = UserLoginRequest(
+    email = this.email, password = this.password , isRemember = this.isRemember
 )

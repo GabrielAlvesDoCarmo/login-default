@@ -21,4 +21,25 @@
     </style>
 
     <style name="TestTheme" parent="Theme.AppCompat" />
+
+    <style name="PhoneDigitEditText">
+        <item name="android:layout_width">@dimen/size_30dp</item>
+        <item name="android:layout_height">@dimen/size_40dp</item>
+        <item name="android:layout_marginEnd">@dimen/size_4dp</item>
+        <item name="android:background">@drawable/bg_icon_provider</item>
+        <item name="android:gravity">center</item>
+        <item name="android:inputType">number</item>
+        <item name="android:maxLength">1</item>
+    </style>
+
+    <style name="PhoneDigitEditTextSeparetor" parent="PhoneDigitEditText">
+        <item name="android:text">-</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textSize">@dimen/size_font_24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:enabled">false</item>
+        <item name="android:textColor">@color/black</item>
+
+    </style>
 </resources>

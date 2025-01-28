@@ -1,4 +1,4 @@
-package br.com.gds.login.feature.login.model
+package br.com.gds.login.feature.login.viewmodel
 
 import br.com.gds.login.utils.extensions.edittext.EditTextState
 

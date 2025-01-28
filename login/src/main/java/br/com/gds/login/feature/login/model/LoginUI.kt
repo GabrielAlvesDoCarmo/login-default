@@ -7,6 +7,9 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class LoginUI(
-    @ColorRes val backgroundColor: Int = R.color.white,
-    @ColorRes val titleColor: Int = R.color.black
+    val enableButtonBack: Boolean = false,
+    val enableButtonRememberPassword: Boolean = false,
+    val enableProviders: Boolean = false,
+    val enabledRegister: Boolean = false,
+    val enabledFingerPrint: Boolean = false,
 ) : Parcelable

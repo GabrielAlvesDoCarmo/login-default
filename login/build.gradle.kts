@@ -90,6 +90,9 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.biometric)
 
+    implementation("androidx.datastore:datastore-preferences:1.1.2")
+    implementation("androidx.datastore:datastore:1.1.2")
+
     testImplementation(libs.junit)
     testImplementation(libs.koin.test.junit4)
     androidTestImplementation(libs.androidx.junit)

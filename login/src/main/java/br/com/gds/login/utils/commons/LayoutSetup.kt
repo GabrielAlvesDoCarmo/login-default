@@ -12,9 +12,9 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class LayoutSetup(
     val layoutDefault: LayoutDefault = LayoutDefault(),
+    val loginFragment: LoginUI = LoginUI(),
     val registerFragment: RegisterPersonalUI = RegisterPersonalUI(),
+    val resetPasswordFragment: ResetPasswordUI = ResetPasswordUI(),
     val addressRegisterFragment: AddressRegisterUI = AddressRegisterUI(),
     val autoRegisterFragment: AutomovelRegisterUI = AutomovelRegisterUI(),
-    val loginFragment: LoginUI = LoginUI(),
-    val resetPasswordFragment: ResetPasswordUI = ResetPasswordUI(),
 ) : Parcelable
