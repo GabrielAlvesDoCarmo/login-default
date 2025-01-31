@@ -1,5 +1,6 @@
 package br.com.gds.login.utils.extensions.edittext
 
+import android.content.Context
 import android.content.res.ColorStateList
 import androidx.annotation.StyleRes
 import androidx.appcompat.widget.AppCompatEditText
@@ -7,6 +8,9 @@ import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import br.com.gds.login.feature.container.model.DefaultColors
+import br.com.gds.login.utils.extensions.createCustomShapeDrawable
+import br.com.gds.login.utils.extensions.setStartDrawableWithTint
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -187,6 +191,16 @@ fun formatPlacaMercosul(text: String): String {
     }
 }
 
+fun AppCompatEditText.setupEdit(context: Context, defaultColors: DefaultColors, icon: Int) {
+    background = context.createCustomShapeDrawable(defaultColors)
+
+    setStartDrawableWithTint(
+        context = context,
+        drawableRes = icon,
+        tintColorRes = defaultColors.secondaryColor
+    )
+    setHintTextColor(context.getColor(defaultColors.lettersColors.hint))
+}
 enum class EditTextMask {
     CEP, PHONE, CPF, PLACA, PLACA_MERCOSUL
 }

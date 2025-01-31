@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -22,8 +21,8 @@ import br.com.gds.login.utils.extensions.createCustomShapeDrawable
 import br.com.gds.login.utils.extensions.edittext.EditTextMask
 import br.com.gds.login.utils.extensions.edittext.EditTextState
 import br.com.gds.login.utils.extensions.edittext.setMaskEdit
+import br.com.gds.login.utils.extensions.edittext.setupEdit
 import br.com.gds.login.utils.extensions.navigateTo
-import br.com.gds.login.utils.extensions.setStartDrawableWithTint
 import br.com.gds.login.utils.extensions.toastMessage
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -98,12 +97,12 @@ class RegisterPersonalFragment : Fragment() {
             }
         }
 
-        registerNameEdit.setupEdit(R.drawable.baseline_person_24)
-        registerOtherNameEdit.setupEdit(R.drawable.baseline_person_24)
-        registerEmailEdit.setupEdit(R.drawable.baseline_email_24)
-        registerPhoneEdit.setupEdit(R.drawable.baseline_phone_24)
-        registerPasswordEdit.setupEdit(R.drawable.baseline_password_24)
-        registerConfirmPasswordEdit.setupEdit(R.drawable.baseline_password_24)
+        registerNameEdit.setupEdit(requireContext(),defaultColors, R.drawable.baseline_person_24)
+        registerOtherNameEdit.setupEdit(requireContext(),defaultColors, R.drawable.baseline_person_24)
+        registerEmailEdit.setupEdit(requireContext(),defaultColors, R.drawable.baseline_email_24)
+        registerPhoneEdit.setupEdit(requireContext(),defaultColors, R.drawable.baseline_phone_24)
+        registerPasswordEdit.setupEdit(requireContext(),defaultColors, R.drawable.baseline_password_24)
+        registerConfirmPasswordEdit.setupEdit(requireContext(),defaultColors, R.drawable.baseline_password_24)
 
 
         if (fragmentUI.enableRegisterProviders) {
@@ -205,17 +204,6 @@ class RegisterPersonalFragment : Fragment() {
                 }
             }
         }
-    }
-
-    private fun AppCompatEditText.setupEdit(icon: Int) {
-        background = requireContext().createCustomShapeDrawable(defaultColors)
-
-        setStartDrawableWithTint(
-            context = requireContext(),
-            drawableRes = icon,
-            tintColorRes = defaultColors.secondaryColor
-        )
-        setHintTextColor(requireContext().getColor(defaultColors.lettersColors.hint))
     }
 ////
 ////    private fun getUserRegister() = RegisterPersonalUser(

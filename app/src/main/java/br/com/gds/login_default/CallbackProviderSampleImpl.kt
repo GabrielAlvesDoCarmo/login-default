@@ -1,7 +1,6 @@
 package br.com.gds.login_default
 
 import android.content.Context
-import android.util.Log
 import android.widget.Toast
 import br.com.gds.login.provider.LoginModuleCallbackProvider
 
@@ -36,6 +35,21 @@ class CallbackProviderSampleImpl(
     override fun errorRegister() {
         //Not yet implemented
         Toast.makeText(context, "Erro ao realizar cadastro", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun successRegisterAddress() {
+        //Not yet implemented
+        Toast.makeText(context, "Endereço cadastrado com sucesso", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun backButtonRegisterAddress() {
+        //Not yet implemented
+        Toast.makeText(context, "botao voltar", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun errorRegisterAddress() {
+        //Not yet implemented
+        Toast.makeText(context, "Erro ao cadastrar endereço", Toast.LENGTH_SHORT).show()
     }
 
     override fun successResetPassword() {
