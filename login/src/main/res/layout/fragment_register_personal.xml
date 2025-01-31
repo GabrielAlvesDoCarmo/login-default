@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container_register_person_root"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:padding="@dimen/size_24dp"
         tools:context=".feature.register.personal.view.RegisterPersonalFragment">
 
@@ -156,6 +156,7 @@
             android:padding="@dimen/size_16dp"
             android:text="@string/register_address"
             android:textAllCaps="false"
+            android:enabled="true"
             android:textColor="@color/black"
             android:textSize="@dimen/size_font_14sp"
             android:layout_marginBottom="@dimen/size_8dp"
@@ -169,18 +170,16 @@
             android:id="@+id/register_button_register_app"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/state_button_login"
-            android:enabled="false"
-            android:gravity="center"
             android:layout_marginBottom="@dimen/size_8dp"
-            android:padding="@dimen/size_8dp"
+            android:background="@drawable/state_button_login"
+            android:gravity="center"
+            android:padding="@dimen/size_16dp"
             android:text="@string/cadastrese"
             android:textAllCaps="false"
             android:textColor="@color/black"
             android:textSize="@dimen/size_20sp"
             app:layout_constraintBottom_toTopOf="@+id/progress_bar"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/register_button_register_address" />
 
@@ -189,7 +188,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:indeterminateTint="@color/test_1"
-            android:visibility="visible"
+            android:visibility="invisible"
             android:layout_marginBottom="@dimen/size_8dp"
             app:layout_constraintBottom_toTopOf="@+id/register_linear_container_or"
             app:layout_constraintEnd_toEndOf="parent"

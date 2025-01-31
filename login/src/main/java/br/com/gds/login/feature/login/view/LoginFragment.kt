@@ -1,6 +1,5 @@
 package br.com.gds.login.feature.login.view
 
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -31,7 +30,7 @@ import br.com.gds.login.utils.helpers.bottomsheet.PhoneLoginBottomSheet
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginFragment : Fragment(), LoginBiometricCallback {
-    //TODO(RECONHECIMENTO FACIAL, voz , iris , e de retina)
+    //TODO(RECONHECIMENTO facial, voz , iris)
     private lateinit var binding: FragmentLoginBinding
     private val viewModel: LoginViewModel by viewModel()
     private val defaultColors by lazy {
