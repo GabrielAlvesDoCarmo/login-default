@@ -19,8 +19,9 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    private val providerSampleImpl by lazy {
+    private val providerSampleImpl: CallbackProviderSampleImpl? by lazy {
         CallbackProviderSampleImpl(applicationContext)
+//        null
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

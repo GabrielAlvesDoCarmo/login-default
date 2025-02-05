@@ -8,8 +8,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
-import br.com.gds.core.commons.notifications.NotificationHelperCore
-import br.com.gds.core.commons.notifications.model.NotificationManagerModel
+import androidx.navigation.findNavController
 import br.com.gds.login.LoginModuleSession
 import br.com.gds.login.R
 import br.com.gds.login.databinding.FragmentRegisterPersonalBinding
@@ -77,7 +76,7 @@ class RegisterPersonalFragment : Fragment() {
         registerTextTitle.setTextColor(requireContext().getColor(defaultColors.secondaryColor))
         registerButtonBack.apply {
             setOnClickListener {
-                provider?.backButtonRegister()
+                provider?.backButtonRegister() ?: findNavController().popBackStack()
             }
             changeColorImageButton(
                 isBorder = true,
@@ -89,8 +88,8 @@ class RegisterPersonalFragment : Fragment() {
             isVisible = fragmentUI.enableButtonAddress
             setOnClickListener {
 
-                autoPreencher()
-//                navigateTo(RegisterPersonalFragmentDirections.actionRegisterToAddressRegister())
+//                autoPreencher()
+                navigateTo(RegisterPersonalFragmentDirections.actionRegisterToAddressRegister())
             }
             background = requireContext().createCustomShapeDrawable(defaultColors)
             setTextColor(requireContext().getColor(defaultColors.secondaryColor))
@@ -186,8 +185,8 @@ class RegisterPersonalFragment : Fragment() {
                     if (state.confirmPasswordState is EditTextState.Invalid)
                         state.confirmPasswordState.errorMessage else null
 
-//                registerButtonRegisterApp.isEnabled = state.isFormValid()
-//                registerButtonRegisterAddress.isEnabled = state.isFormValid()
+                registerButtonRegisterApp.isEnabled = state.isFormValid()
+                registerButtonRegisterAddress.isEnabled = state.isFormValid()
             }
         }
     }
