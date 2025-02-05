@@ -2,7 +2,7 @@ package br.com.gds.login_default
 
 import android.app.Application
 import br.com.gds.login.BuildConfig
-import br.com.gds.login.ci.loginModulesInjection
+import br.com.gds.login.di.loginModulesInjection
 import com.google.firebase.FirebaseApp
 import com.google.firebase.FirebaseOptions
 import org.koin.android.ext.koin.androidContext

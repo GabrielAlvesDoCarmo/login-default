@@ -8,6 +8,5 @@ sealed class NavigationScreenAction : Parcelable {
     data object ToLogin : NavigationScreenAction()
     data object ToRegisterPerson : NavigationScreenAction()
     data object ToRegisterAddress : NavigationScreenAction()
-    data object ToRegisterAuto : NavigationScreenAction()
     data object ToResetPassword : NavigationScreenAction()
 }

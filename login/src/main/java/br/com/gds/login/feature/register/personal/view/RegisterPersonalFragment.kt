@@ -1,5 +1,6 @@
 package br.com.gds.login.feature.register.personal.view
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,11 +8,15 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import br.com.gds.core.commons.notifications.NotificationHelperCore
+import br.com.gds.core.commons.notifications.model.NotificationManagerModel
 import br.com.gds.login.LoginModuleSession
 import br.com.gds.login.R
 import br.com.gds.login.databinding.FragmentRegisterPersonalBinding
 import br.com.gds.login.feature.container.model.DefaultColors
 import br.com.gds.login.feature.register.personal.model.RegisterPersonalUI
+import br.com.gds.login.feature.register.personal.model.RegisterPersonalUser
+import br.com.gds.login.feature.register.personal.model.isFormValid
 import br.com.gds.login.feature.register.personal.viewmodel.RegisterPersonalState
 import br.com.gds.login.feature.register.personal.viewmodel.RegisterPersonalViewModel
 import br.com.gds.login.utils.commons.LayoutSetup
@@ -83,7 +88,9 @@ class RegisterPersonalFragment : Fragment() {
         registerButtonRegisterAddress.apply {
             isVisible = fragmentUI.enableButtonAddress
             setOnClickListener {
-                navigateTo(RegisterPersonalFragmentDirections.actionRegisterToAddressRegister())
+
+                autoPreencher()
+//                navigateTo(RegisterPersonalFragmentDirections.actionRegisterToAddressRegister())
             }
             background = requireContext().createCustomShapeDrawable(defaultColors)
             setTextColor(requireContext().getColor(defaultColors.secondaryColor))
@@ -93,7 +100,9 @@ class RegisterPersonalFragment : Fragment() {
             background = requireContext().createCustomShapeDrawable(defaultColors)
             setTextColor(requireContext().getColor(defaultColors.secondaryColor))
             setOnClickListener {
-                toastMessage("CLICOU")
+               viewModel.register(
+                   registerPersonalUser = getUserRegister()
+               )
             }
         }
 
@@ -205,11 +214,25 @@ class RegisterPersonalFragment : Fragment() {
             }
         }
     }
-////
-////    private fun getUserRegister() = RegisterPersonalUser(
-////        name = binding.registerNameEdit.text.toString(),
-////        email = binding.loginEmailEdit.text.toString(),
-////        password = binding.registerPasswordEdit.text.toString(),
-////        confirmPassword = binding.registerConfirmPasswordEdit.text.toString()
-////    )
+
+    private fun getUserRegister() = RegisterPersonalUser(
+        name = binding.registerNameEdit.text.toString(),
+        email = binding.registerEmailEdit.text.toString(),
+        password = binding.registerPasswordEdit.text.toString(),
+        confirmPassword = binding.registerConfirmPasswordEdit.text.toString()
+    )
+
+    @SuppressLint("SetTextI18n")
+    fun autoPreencher() {
+        binding.apply {
+            registerNameEdit.setText("GAbriel")
+            registerOtherNameEdit.setText("Gabriel")
+            registerEmailEdit.setText("william.paterson@my-own-personal-domain.com")
+            registerPasswordEdit.setText("11aaAA@@")
+            registerConfirmPasswordEdit.setText("11aaAA@@")
+            registerPhoneEdit.setText("11111111111")
+
+
+        }
+    }
 }

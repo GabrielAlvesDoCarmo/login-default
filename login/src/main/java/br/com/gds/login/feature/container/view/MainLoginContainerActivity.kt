@@ -73,9 +73,6 @@ class MainLoginContainerActivity : AppCompatActivity() {
             NavigationScreenAction.ToRegisterAddress -> {
 
             }
-            NavigationScreenAction.ToRegisterAuto -> {
-
-            }
         }
     }
 

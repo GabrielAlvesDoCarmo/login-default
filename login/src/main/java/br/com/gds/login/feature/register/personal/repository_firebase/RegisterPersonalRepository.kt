@@ -8,9 +8,13 @@ interface RegisterPersonalRepository {
         registerRequest: RegisterRequest
     ) : RegisterPersonalState
 
-    suspend fun saveStatusOnline(
+    suspend fun saveUserListOnline(
         registerResponse: RegisterResponse
-    ): RegisterPersonalState
+    ): Boolean
+
+    suspend fun saveUserListOffline(
+        registerResponse: RegisterResponse
+    ): Boolean
 
     suspend fun saveDataUser(
         registerResponse: RegisterResponse

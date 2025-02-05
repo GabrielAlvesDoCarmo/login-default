@@ -1,4 +1,4 @@
-package br.com.gds.login.ci
+package br.com.gds.login.di
 
 import br.com.gds.login.feature.login.repository_firebase.LoginRepository
 import br.com.gds.login.feature.login.repository_firebase.LoginRepositoryImpl

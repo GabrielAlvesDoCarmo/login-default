@@ -66,7 +66,8 @@ afterEvaluate {
 }
 
 dependencies {
-    implementation(libs.default.core)
+//    implementation(libs.default.core)
+    implementation("com.github.GabrielAlvesDoCarmo:core-default:master-SNAPSHOT")
     implementation(libs.default.design.system)
 
 
